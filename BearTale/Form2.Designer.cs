@@ -44,24 +44,28 @@
 			this.buttonLoad = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.colorComboBox1 = new BearTale.ColorComboBox();
 			this.colorComboBox2 = new BearTale.ColorComboBox();
+			this.colorComboBox1 = new BearTale.ColorComboBox();
+			this.button1 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// listBox1
 			// 
+			this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.listBox1.FormattingEnabled = true;
 			this.listBox1.ItemHeight = 12;
 			this.listBox1.Location = new System.Drawing.Point(12, 12);
 			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(533, 148);
+			this.listBox1.Size = new System.Drawing.Size(522, 148);
 			this.listBox1.TabIndex = 0;
+			this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
+			this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
 			// 
 			// buttonAdd
 			// 
-			this.buttonAdd.Location = new System.Drawing.Point(12, 166);
+			this.buttonAdd.Location = new System.Drawing.Point(12, 161);
 			this.buttonAdd.Name = "buttonAdd";
-			this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+			this.buttonAdd.Size = new System.Drawing.Size(47, 23);
 			this.buttonAdd.TabIndex = 1;
 			this.buttonAdd.Text = "Add";
 			this.buttonAdd.UseVisualStyleBackColor = true;
@@ -69,7 +73,7 @@
 			// 
 			// buttonDelete
 			// 
-			this.buttonDelete.Location = new System.Drawing.Point(93, 166);
+			this.buttonDelete.Location = new System.Drawing.Point(59, 161);
 			this.buttonDelete.Name = "buttonDelete";
 			this.buttonDelete.Size = new System.Drawing.Size(75, 23);
 			this.buttonDelete.TabIndex = 2;
@@ -79,7 +83,7 @@
 			// 
 			// buttonMoveUp
 			// 
-			this.buttonMoveUp.Location = new System.Drawing.Point(174, 166);
+			this.buttonMoveUp.Location = new System.Drawing.Point(134, 161);
 			this.buttonMoveUp.Name = "buttonMoveUp";
 			this.buttonMoveUp.Size = new System.Drawing.Size(75, 23);
 			this.buttonMoveUp.TabIndex = 3;
@@ -89,7 +93,7 @@
 			// 
 			// buttonMoveDown
 			// 
-			this.buttonMoveDown.Location = new System.Drawing.Point(255, 166);
+			this.buttonMoveDown.Location = new System.Drawing.Point(209, 161);
 			this.buttonMoveDown.Name = "buttonMoveDown";
 			this.buttonMoveDown.Size = new System.Drawing.Size(88, 23);
 			this.buttonMoveDown.TabIndex = 4;
@@ -100,7 +104,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(10, 192);
+			this.label1.Location = new System.Drawing.Point(10, 186);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(105, 12);
 			this.label1.TabIndex = 5;
@@ -109,7 +113,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(253, 192);
+			this.label2.Location = new System.Drawing.Point(294, 187);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(106, 12);
 			this.label2.TabIndex = 5;
@@ -117,9 +121,9 @@
 			// 
 			// buttonPageUp
 			// 
-			this.buttonPageUp.Location = new System.Drawing.Point(356, 166);
+			this.buttonPageUp.Location = new System.Drawing.Point(296, 161);
 			this.buttonPageUp.Name = "buttonPageUp";
-			this.buttonPageUp.Size = new System.Drawing.Size(88, 23);
+			this.buttonPageUp.Size = new System.Drawing.Size(63, 23);
 			this.buttonPageUp.TabIndex = 4;
 			this.buttonPageUp.Text = "Page Up";
 			this.buttonPageUp.UseVisualStyleBackColor = true;
@@ -127,7 +131,7 @@
 			// 
 			// buttonPageDown
 			// 
-			this.buttonPageDown.Location = new System.Drawing.Point(455, 166);
+			this.buttonPageDown.Location = new System.Drawing.Point(359, 161);
 			this.buttonPageDown.Name = "buttonPageDown";
 			this.buttonPageDown.Size = new System.Drawing.Size(88, 23);
 			this.buttonPageDown.TabIndex = 4;
@@ -138,7 +142,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(10, 232);
+			this.label3.Location = new System.Drawing.Point(10, 225);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(37, 12);
 			this.label3.TabIndex = 5;
@@ -146,14 +150,14 @@
 			// 
 			// textBoxString
 			// 
-			this.textBoxString.Location = new System.Drawing.Point(13, 248);
+			this.textBoxString.Location = new System.Drawing.Point(13, 241);
 			this.textBoxString.Name = "textBoxString";
-			this.textBoxString.Size = new System.Drawing.Size(532, 21);
+			this.textBoxString.Size = new System.Drawing.Size(519, 21);
 			this.textBoxString.TabIndex = 6;
 			// 
 			// buttonOk
 			// 
-			this.buttonOk.Location = new System.Drawing.Point(387, 275);
+			this.buttonOk.Location = new System.Drawing.Point(384, 265);
 			this.buttonOk.Name = "buttonOk";
 			this.buttonOk.Size = new System.Drawing.Size(75, 23);
 			this.buttonOk.TabIndex = 8;
@@ -162,7 +166,7 @@
 			// 
 			// button8
 			// 
-			this.button8.Location = new System.Drawing.Point(468, 275);
+			this.button8.Location = new System.Drawing.Point(459, 265);
 			this.button8.Name = "button8";
 			this.button8.Size = new System.Drawing.Size(75, 23);
 			this.button8.TabIndex = 8;
@@ -171,9 +175,9 @@
 			// 
 			// buttonLoad
 			// 
-			this.buttonLoad.Location = new System.Drawing.Point(117, 276);
+			this.buttonLoad.Location = new System.Drawing.Point(447, 161);
 			this.buttonLoad.Name = "buttonLoad";
-			this.buttonLoad.Size = new System.Drawing.Size(75, 23);
+			this.buttonLoad.Size = new System.Drawing.Size(42, 23);
 			this.buttonLoad.TabIndex = 9;
 			this.buttonLoad.Text = "Load";
 			this.buttonLoad.UseVisualStyleBackColor = true;
@@ -181,9 +185,9 @@
 			// 
 			// buttonSave
 			// 
-			this.buttonSave.Location = new System.Drawing.Point(198, 275);
+			this.buttonSave.Location = new System.Drawing.Point(489, 161);
 			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(75, 23);
+			this.buttonSave.Size = new System.Drawing.Size(45, 23);
 			this.buttonSave.TabIndex = 10;
 			this.buttonSave.Text = "Save";
 			this.buttonSave.UseVisualStyleBackColor = true;
@@ -191,11 +195,32 @@
 			// 
 			// textBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(149, 208);
+			this.textBox1.Location = new System.Drawing.Point(165, 201);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(100, 21);
 			this.textBox1.TabIndex = 12;
 			this.textBox1.Text = "asdas";
+			// 
+			// colorComboBox2
+			// 
+			this.colorComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.colorComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.colorComboBox2.FormattingEnabled = true;
+			this.colorComboBox2.Items.AddRange(new object[] {
+            "Black",
+            "Red",
+            "Blue",
+            "Green"});
+			this.colorComboBox2.Location = new System.Drawing.Point(296, 203);
+			this.colorComboBox2.MyColors = new string[] {
+        "Black",
+        "Red",
+        "Blue",
+        "Green"};
+			this.colorComboBox2.Name = "colorComboBox2";
+			this.colorComboBox2.Size = new System.Drawing.Size(121, 22);
+			this.colorComboBox2.TabIndex = 13;
+			this.colorComboBox2.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox2_SelectionChangeCommitted);
 			// 
 			// colorComboBox1
 			// 
@@ -209,7 +234,7 @@
             "Green",
             "Yellow",
             "Orange"});
-			this.colorComboBox1.Location = new System.Drawing.Point(12, 207);
+			this.colorComboBox1.Location = new System.Drawing.Point(12, 201);
 			this.colorComboBox1.MyColors = new string[] {
         "Black",
         "Red",
@@ -222,32 +247,22 @@
 			this.colorComboBox1.TabIndex = 11;
 			this.colorComboBox1.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox1_SelectionChangeCommitted);
 			// 
-			// colorComboBox2
+			// button1
 			// 
-			this.colorComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-			this.colorComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.colorComboBox2.FormattingEnabled = true;
-			this.colorComboBox2.Items.AddRange(new object[] {
-            "Black",
-            "Red",
-            "Blue",
-            "Green"});
-			this.colorComboBox2.Location = new System.Drawing.Point(276, 208);
-			this.colorComboBox2.MyColors = new string[] {
-        "Black",
-        "Red",
-        "Blue",
-        "Green"};
-			this.colorComboBox2.Name = "colorComboBox2";
-			this.colorComboBox2.Size = new System.Drawing.Size(121, 22);
-			this.colorComboBox2.TabIndex = 13;
-			this.colorComboBox2.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox2_SelectionChangeCommitted);
+			this.button1.Location = new System.Drawing.Point(459, 198);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 14;
+			this.button1.Text = "button1";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// Form2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(557, 300);
+			this.ClientSize = new System.Drawing.Size(548, 289);
+			this.Controls.Add(this.button1);
 			this.Controls.Add(this.colorComboBox2);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.colorComboBox1);
@@ -295,5 +310,6 @@
 		private ColorComboBox colorComboBox1;
 		private System.Windows.Forms.TextBox textBox1;
 		private ColorComboBox colorComboBox2;
+		private System.Windows.Forms.Button button1;
 	}
 }
