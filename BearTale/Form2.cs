@@ -17,7 +17,8 @@ namespace BearTale
 		{
 			InitializeComponent();
 		}
-		
+
+
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
@@ -25,12 +26,26 @@ namespace BearTale
 			{
 				return;
 			}
+	
+		
+
+		
+
+				//listBox1.Controls.Add(newButton);
+				//newButton.Dock = DockStyle.Top;
+				//newButton.BringToFront();
+		
+
+
 			TextBox textboxColor = new TextBox();
+			textboxColor.Visible = true;
 			textboxColor.Text = colorComboBox1.Text;
 			textboxColor.ForeColor = Color.FromName(colorComboBox1.Text);
 			textboxColor.BackColor = Color.FromName(colorComboBox2.Text);
-			
-			listBox1.Items.Add(new MyListBoxItem(textboxColor, Color.FromName(colorComboBox1.Text), textBoxString.Text));
+
+			//listBox1.Controls.Add(new MyListBoxItem(textboxColor, Color.FromName(colorComboBox1.Text), textBoxString.Text));
+			listBox1.Items.Add(new MyListBoxItem(textboxColor, Color.FromName(colorComboBox1.Text), textBoxString.Text)); 
+			//listBox1.Controls.Add(textboxColor)
 		}
 
 		private void buttonDelete_Click(object sender, EventArgs e)
