@@ -37,10 +37,11 @@
 			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripTextBoxPath = new System.Windows.Forms.ToolStripTextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
@@ -64,8 +65,9 @@
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.openToolStripMenuItem.Text = "Open";
+			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
 			// toolStrip1
 			// 
@@ -101,28 +103,32 @@
 			// 
 			this.toolStripTextBoxPath.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.toolStripTextBoxPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.toolStripTextBoxPath.Enabled = false;
 			this.toolStripTextBoxPath.Font = new System.Drawing.Font("맑은 고딕", 9F);
 			this.toolStripTextBoxPath.Name = "toolStripTextBoxPath";
+			this.toolStripTextBoxPath.ReadOnly = true;
 			this.toolStripTextBoxPath.Size = new System.Drawing.Size(300, 25);
+			this.toolStripTextBoxPath.Click += new System.EventHandler(this.toolStripTextBoxPath_Click);
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.listBox1);
+			this.panel1.Controls.Add(this.dataGridView1);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(0, 49);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(800, 401);
 			this.panel1.TabIndex = 3;
 			// 
-			// listBox1
+			// dataGridView1
 			// 
-			this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.ItemHeight = 12;
-			this.listBox1.Location = new System.Drawing.Point(0, 0);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(800, 401);
-			this.listBox1.TabIndex = 1;
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.RowTemplate.Height = 23;
+			this.dataGridView1.Size = new System.Drawing.Size(800, 401);
+			this.dataGridView1.TabIndex = 0;
+			this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
 			// 
 			// Form1
 			// 
@@ -132,6 +138,7 @@
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.toolStrip1);
 			this.Controls.Add(this.menuStrip1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -142,6 +149,7 @@
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.panel1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -157,7 +165,7 @@
 		private System.Windows.Forms.ToolStripButton toolStripButton2;
 		private System.Windows.Forms.ToolStripTextBox toolStripTextBoxPath;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.ListBox listBox1;
+		private System.Windows.Forms.DataGridView dataGridView1;
 	}
 }
 

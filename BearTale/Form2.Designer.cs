@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.listBox1 = new System.Windows.Forms.ListBox();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.buttonDelete = new System.Windows.Forms.Button();
 			this.buttonMoveUp = new System.Windows.Forms.Button();
@@ -44,22 +44,12 @@
 			this.buttonLoad = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.colorComboBox2 = new BearTale.ColorComboBox();
 			this.colorComboBox1 = new BearTale.ColorComboBox();
-			this.button1 = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// listBox1
-			// 
-			this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.ItemHeight = 12;
-			this.listBox1.Location = new System.Drawing.Point(12, 12);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(522, 148);
-			this.listBox1.TabIndex = 0;
-			this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
-			this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
 			// 
 			// buttonAdd
 			// 
@@ -200,52 +190,7 @@
 			this.textBox1.Size = new System.Drawing.Size(100, 21);
 			this.textBox1.TabIndex = 12;
 			this.textBox1.Text = "asdas";
-			// 
-			// colorComboBox2
-			// 
-			this.colorComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-			this.colorComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.colorComboBox2.FormattingEnabled = true;
-			this.colorComboBox2.Items.AddRange(new object[] {
-            "Black",
-            "Red",
-            "Blue",
-            "Green"});
-			this.colorComboBox2.Location = new System.Drawing.Point(296, 203);
-			this.colorComboBox2.MyColors = new string[] {
-        "Black",
-        "Red",
-        "Blue",
-        "Green"};
-			this.colorComboBox2.Name = "colorComboBox2";
-			this.colorComboBox2.Size = new System.Drawing.Size(121, 22);
-			this.colorComboBox2.TabIndex = 13;
-			this.colorComboBox2.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox2_SelectionChangeCommitted);
-			// 
-			// colorComboBox1
-			// 
-			this.colorComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-			this.colorComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.colorComboBox1.FormattingEnabled = true;
-			this.colorComboBox1.Items.AddRange(new object[] {
-            "Black",
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow",
-            "Orange"});
-			this.colorComboBox1.Location = new System.Drawing.Point(12, 201);
-			this.colorComboBox1.MyColors = new string[] {
-        "Black",
-        "Red",
-        "Blue",
-        "Green",
-        "Yellow",
-        "Orange"};
-			this.colorComboBox1.Name = "colorComboBox1";
-			this.colorComboBox1.Size = new System.Drawing.Size(121, 22);
-			this.colorComboBox1.TabIndex = 11;
-			this.colorComboBox1.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox1_SelectionChangeCommitted);
+			this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
 			// button1
 			// 
@@ -255,13 +200,72 @@
 			this.button1.TabIndex = 14;
 			this.button1.Text = "button1";
 			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Location = new System.Drawing.Point(12, 5);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.RowTemplate.Height = 23;
+			this.dataGridView1.Size = new System.Drawing.Size(520, 150);
+			this.dataGridView1.TabIndex = 15;
+			this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+			this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+			this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+			// 
+			// colorComboBox2
+			// 
+			this.colorComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.colorComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.colorComboBox2.FormattingEnabled = true;
+			this.colorComboBox2.Items.AddRange(new object[] {
+            "Red",
+            "Blue",
+            "Green"});
+			this.colorComboBox2.Location = new System.Drawing.Point(296, 203);
+			this.colorComboBox2.MyColors = new string[] {
+        "Red",
+        "Blue",
+        "Green"};
+			this.colorComboBox2.Name = "colorComboBox2";
+			this.colorComboBox2.Size = new System.Drawing.Size(121, 22);
+			this.colorComboBox2.TabIndex = 13;
+			this.colorComboBox2.SelectedIndexChanged += new System.EventHandler(this.colorComboBox2_SelectedIndexChanged);
+			this.colorComboBox2.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox2_SelectionChangeCommitted);
+			// 
+			// colorComboBox1
+			// 
+			this.colorComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+			this.colorComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.colorComboBox1.FormattingEnabled = true;
+			this.colorComboBox1.Items.AddRange(new object[] {
+            "Black",
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow",
+            "Orange",
+            "Pink"});
+			this.colorComboBox1.Location = new System.Drawing.Point(12, 201);
+			this.colorComboBox1.MyColors = new string[] {
+        "Black",
+        "Red",
+        "Blue",
+        "Green",
+        "Yellow",
+        "Orange",
+        "Pink"};
+			this.colorComboBox1.Name = "colorComboBox1";
+			this.colorComboBox1.Size = new System.Drawing.Size(121, 22);
+			this.colorComboBox1.TabIndex = 11;
+			this.colorComboBox1.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox1_SelectionChangeCommitted);
 			// 
 			// Form2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(548, 289);
+			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.colorComboBox2);
 			this.Controls.Add(this.textBox1);
@@ -280,19 +284,18 @@
 			this.Controls.Add(this.buttonMoveUp);
 			this.Controls.Add(this.buttonDelete);
 			this.Controls.Add(this.buttonAdd);
-			this.Controls.Add(this.listBox1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form2";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Highlighting";
 			this.Load += new System.EventHandler(this.Form2_Load);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.ListBox listBox1;
 		private System.Windows.Forms.Button buttonAdd;
 		private System.Windows.Forms.Button buttonDelete;
 		private System.Windows.Forms.Button buttonMoveUp;
@@ -311,5 +314,6 @@
 		private System.Windows.Forms.TextBox textBox1;
 		private ColorComboBox colorComboBox2;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.DataGridView dataGridView1;
 	}
 }

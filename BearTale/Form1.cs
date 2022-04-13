@@ -24,7 +24,7 @@ namespace BearTale
 			{
 				string filePath = string.Empty;
 				string fileContent = string.Empty;
-				string[] contents = null;
+				//string[] contents = null;
 
 				using (OpenFileDialog fd = new OpenFileDialog())
 				{
@@ -41,15 +41,17 @@ namespace BearTale
 				//경로텍스트박스 경로내용추가
 				toolStripTextBoxPath.AppendText(filePath);
 
-				
+				dataGridView1.Columns.Add("content", "");
+				dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+				dataGridView1.ColumnHeadersVisible = false;
 				//한줄씩 읽고 추가하기
-				contents = System.IO.File.ReadAllLines(filePath);
+				string[] contents = System.IO.File.ReadAllLines(filePath);
 				if (contents.Length > 0)
 				{
 					for (int i = 0; i < contents.Length; i++)
 					{
 						//(i+1).ToString() + 
-						listBox1.Items.Add(contents[i]);
+						dataGridView1.Rows.Add(contents[i]);
 					}
 				}
 			}
@@ -70,6 +72,40 @@ namespace BearTale
 		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			dataGridView1.GridColor = Color.White;
+			dataGridView1.CurrentCell = null;
+		}
+
+		private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+		{
+			numberCount(e);
+		}
+
+		private void toolStripTextBoxPath_Click(object sender, EventArgs e)
+		{
+		}
+
+		void numberCount(DataGridViewRowPostPaintEventArgs e)
+		{
+			try
+			{
+				// row header 에 자동 일련번호 넣기
+				StringFormat drawFormat = new StringFormat();
+				//drawFormat.FormatFlags = StringFormatFlags.DirectionVertical;
+				drawFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft;
+				using (Brush brush = new SolidBrush(Color.Red))
+				{
+					e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, brush, e.RowBounds.Location.X + 35, e.RowBounds.Location.Y + 4, drawFormat);
+				}
+			}
+			catch (Exception)
+			{
+			}
+		}
+
+		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			toolStripButton1_Click(sender,e);
 		}
 	}
 }
