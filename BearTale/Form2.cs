@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace BearTale
 {
@@ -27,45 +28,54 @@ namespace BearTale
 			{
 				return;
 			}
-			//TextBox textboxColor = new TextBox();
-			//textboxColor.Visible = true;
-			//textboxColor.Text = colorComboBox1.Text;
-			//textboxColor.ForeColor = Color.FromName(colorComboBox1.Text);
-			//textboxColor.BackColor = Color.FromName(colorComboBox2.Text);
-			//MyListBoxItem newitem = new MyListBoxItem(textboxColor, Color.FromName(colorComboBox1.Text), textBoxString.Text);
-
-			//textboxColumn.DefaultCellStyle.ForeColor = Color.FromName(colorComboBox1.Text);
-			//textboxColumn.DefaultCellStyle.BackColor = Color.FromName(colorComboBox2.Text);
-
+			// 데이터그리드뷰 row1줄 추가
 			dataGridView1.Rows.Add(1);
-			int i = 0;
 
-			//텍스트박스컬럼설정
-			//		textboxColumn.Visible = true;
-			//	textboxColumn.HeaderText = "컬러";
-
-			//		dataGridView1.Rows.Add(textboxColumn, "s");
-			//	textboxColumn.DefaultCellStyle.ForeColor = Color.FromName(colorComboBox1.Text);
-			//textboxColumn.DefaultCellStyle.BackColor = Color.FromName(colorComboBox2.Text);
-
+			// 데이터그리드뷰 value값 지정
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Value = textBoxString.Text;
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[1].Value = textBoxString.Text;
 
+			//데이터그리드뷰 끝으로이동
+			//dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1;
+
+			//데이터그리드뷰 현재셀 취소
 			dataGridView1.CurrentCell = null;
 
 		}
 
 		private void buttonDelete_Click(object sender, EventArgs e)
 		{
-			//listBox1.Items.Remove(listBox1.SelectedItem);
+			//데이터그리드뷰 해당row셀 삭제
+			dataGridView1.Rows.Remove(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex]);
 		}
 
 		private void buttonMoveUp_Click(object sender, EventArgs e)
 		{
+			DataGridView dgv = dataGridView1;
+			try
+			{
+				int totalRows = dgv.Rows.Count;
+				// get index of the row for the selected cell
+				int rowIndex = dgv.SelectedCells[0].OwningRow.Index;
+				if (rowIndex == 0)
+					return;
+				// get index of the column for the selected cell
+				int colIndex = dgv.SelectedCells[0].OwningColumn.Index;
+				DataGridViewRow selectedRow = dgv.Rows[rowIndex];
+				dgv.Rows.Remove(selectedRow);
+				dgv.Rows.Insert(rowIndex - 1, selectedRow);
+				dgv.ClearSelection();
+				dgv.Rows[rowIndex - 1].Cells[colIndex].Selected = true;
+			}
+			catch { }
+
+
+
 			//int index = listBox1.SelectedIndex;
 			//string listBoxItemText = listBox1.SelectedItem.ToString();
+
 			//if (index > 0)
 			//{
 			//	listBox1.Items.RemoveAt(index);
@@ -74,65 +84,125 @@ namespace BearTale
 			//}
 		}
 
+		private int GetSelectedRowIndex(DataGridView dgv)
+		{
+			if (dgv.Rows.Count == 0)
+			{
+				return 0;
+			}
+			foreach (DataGridViewRow row in dgv.Rows)
+			{
+				if (row.Selected)
+				{
+					return row.Index;
+				}
+			}
+			return 0;
+		}
+
+		private void TaskViewEditHelper_OnUpStep(object sender, EventArgs e)
+		{
+
+			if (this.dataGridView1.SelectedRows == null || this.dataGridView1.SelectedRows.Count == 0)
+			{
+				//	Xtramessagebox.Show("please select a row first, click the first column to select the middle row");
+			}
+			else
+			{
+				if (this.dataGridView1.SelectedRows[0].Index <= 0)
+				{
+					//	Xtramessagebox.Show("this line is already at the top and cannot be moved up! "";
+
+				}
+				else
+				{
+					//Note: This is the move up line for unbound data
+					//Selected line number  
+					int selectedRowIndex = GetSelectedRowIndex(this.dataGridView1);
+					if (selectedRowIndex >= 1)
+					{
+						//Copy selected lines  
+						DataGridViewRow newRow = dataGridView1.Rows[selectedRowIndex];
+						//Delete selected rows  
+						dataGridView1.Rows.Remove(dataGridView1.Rows[selectedRowIndex]);
+						//Insert the copied row into the previous row selected  
+						dataGridView1.Rows.Insert(selectedRowIndex - 1, newRow);
+						dataGridView1.ClearSelection();
+						//Select the initially selected row 
+						dataGridView1.Rows[selectedRowIndex - 1].Selected = true;
+					}
+				}
+			}
+		}
+
+
 		private void buttonMoveDown_Click(object sender, EventArgs e)
 		{
-			//int index = listBox1.SelectedIndex;
-			//string listBoxItemText = listBox1.SelectedItem.ToString();
-			//if (index < listBox1.Items.Count - 1)
-			//{
-			//	listBox1.Items.RemoveAt(index);
-			//	listBox1.Items.Insert(index + 1, listBoxItemText);
-			//	listBox1.SetSelected(index + 1, true);
-			//}
+			DataGridView dgv = dataGridView1;
+			try
+			{
+				int totalRows = dgv.Rows.Count;
+				// get index of the row for the selected cell
+				int rowIndex = dgv.SelectedCells[0].OwningRow.Index;
+				if (rowIndex == totalRows - 1)
+					return;
+				// get index of the column for the selected cell
+				int colIndex = dgv.SelectedCells[0].OwningColumn.Index;
+				DataGridViewRow selectedRow = dgv.Rows[rowIndex];
+				dgv.Rows.Remove(selectedRow);
+				dgv.Rows.Insert(rowIndex + 1, selectedRow);
+				dgv.ClearSelection();
+				dgv.Rows[rowIndex + 1].Cells[colIndex].Selected = true;
+			}
+			catch { }
 		}
 
 		private void buttonSave_Click(object sender, EventArgs e)
 		{
-			//try
-			//{
-			//	StreamWriter sw;
-			//	sw = new StreamWriter("highilight.txt");
-			//	int nCount = listBox1.Items.Count;
-			//	for (int i = 0; i < nCount; i++)
-			//	{
-			//		listBox1.Items[i] += "\r\n";
-			//		sw.Write(listBox1.Items[i]);
-			//	}
-			//	sw.Close();
-			//}
-			//catch (Exception ex)
-			//{
-			//}
+			string filename = "high.xml";
+			List<List<string>> data = new List<List<string>>();
+			foreach (DataGridViewRow row in dataGridView1.Rows)
+			{
+				List<string> rowData = new List<string>();
+				foreach (DataGridViewCell cell in row.Cells)
+					//		rowData.Add(cell)
+					rowData.Add(cell.FormattedValue.ToString());
+				data.Add(rowData);
+			}
+			XmlSerializer xs = new XmlSerializer(data.GetType());
+			using (TextWriter tw = new StreamWriter(filename))
+			{
+				xs.Serialize(tw, data);
+				tw.Close();
+			}
+
 		}
 
 		private void buttonLoad_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				//listBox1.Items.Clear();
-				//string currentPath = System.IO.Directory.GetCurrentDirectory();
-				//StreamReader file = new StreamReader(currentPath + "\\highilight.txt", Encoding.Default);
-				//string s = "";
-				//while (s != null)
-				//{
-				//	s = file.ReadLine();
-				//	if (!string.IsNullOrEmpty(s)) listBox1.Items.Add(s);
-				//}
-				//file.Close();
-			}
-			catch (Exception ex)
-			{
-			}
+			dataGridView1.Rows.Clear();
+			string fileName = "high.xml";
+			List<List<string>> data = new List<List<string>>();
+			XmlSerializer xs = new XmlSerializer(data.GetType());
+			using (TextReader tr = new StreamReader(fileName))
+				data = (List<List<string>>)xs.Deserialize(tr);
+			foreach (List<string> rowData in data)
+				dataGridView1.Rows.Add(rowData.ToArray());
 		}
 
 		private void buttonPageUp_Click(object sender, EventArgs e)
 		{
 			//listBox1.SelectedIndex = 0;
+			dataGridView1.CurrentCell = dataGridView1.Rows[0].Cells[0];
+
+
 		}
 
 		private void buttonPageDown_Click(object sender, EventArgs e)
 		{
 			//listBox1.SelectedIndex = listBox1.Items.Count - 1;
+			dataGridView1.CurrentCell = dataGridView1.Rows[dataGridView1.RowCount - 1].Cells[0];
+
 		}
 
 		private void Form2_Load(object sender, EventArgs e)
@@ -155,25 +225,38 @@ namespace BearTale
 			dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 			dataGridView1.GridColor = Color.White;
 			//dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+			dataGridView1.SelectAll();
 		}
 
 
 		private void colorComboBox1_SelectionChangeCommitted(object sender, EventArgs e)
 		{
+			if (dataGridView1.CurrentCell == null)
+			{
+				return;
+			}
 			textBox1.ForeColor = Color.FromName(colorComboBox1.Text);
-			//listBox1.Items. = colorComboBox1.Text;
+			int rowIndex = dataGridView1.CurrentCell.RowIndex;
+			dataGridView1.Rows[rowIndex].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
 		}
 
 		private void colorComboBox2_SelectionChangeCommitted(object sender, EventArgs e)
 		{
+			if (dataGridView1.CurrentCell == null)
+			{
+				return;
+			}
 			textBox1.BackColor = Color.FromName(colorComboBox2.Text);
-			//listBox1.BackColor = Color.FromName(colorComboBox2.Text);
+			int rowIndex = dataGridView1.CurrentCell.RowIndex;
+			dataGridView1.Rows[rowIndex].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
 		}
 
 
 
 		private void colorComboBox2_SelectedIndexChanged(object sender, EventArgs e)
 		{
+
+
 
 		}
 
@@ -205,27 +288,39 @@ namespace BearTale
 				return;
 			}
 			textBoxString.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+			colorComboBox1.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Style.ForeColor.Name.ToString();
+			colorComboBox2.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Style.BackColor.Name.ToString();
 		}
 
 		private void buttonOk_Click(object sender, EventArgs e)
 		{
 			Form1 Mainform = (Form1)Owner;
 			//데이터그리드뷰내용저장하기
+
+			//int rowindex = dataGridView1.CurrentRow.Index;
+			//string rowValue = dataGridView1.Rows[rowindex].Cells[1].Value.ToString().Trim();
+			//if (rowValue.Contains("1"))
+			//{
+			//	dataGridView1.Rows[rowindex].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
+			//	dataGridView1.Rows[rowindex].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
+			//}
+
 		}
 
 		private void textBoxString_TextChanged(object sender, EventArgs e)
 		{
-			if (dataGridView1.CurrentCell == null) 
+			if (dataGridView1.CurrentCell == null)
 			{
 				return;
 			}
 			int rowIndex = dataGridView1.CurrentCell.RowIndex;
 
-			
-				dataGridView1.Rows[rowIndex].Cells[0].Value = textBoxString.Text;
-				dataGridView1.Rows[rowIndex].Cells[1].Value = textBoxString.Text;
+
+			dataGridView1.Rows[rowIndex].Cells[0].Value = textBoxString.Text;
+			dataGridView1.Rows[rowIndex].Cells[1].Value = textBoxString.Text;
 
 		}
+
 
 	}
 

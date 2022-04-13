@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,6 +14,9 @@ namespace BearTale
 {
 	public partial class Form1 : Form
 	{
+		delegate void view(string value, string type, string checkPath);
+		private view view_event;
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -24,41 +28,99 @@ namespace BearTale
 			{
 				string filePath = string.Empty;
 				string fileContent = string.Empty;
-				//string[] contents = null;
 
 				using (OpenFileDialog fd = new OpenFileDialog())
 				{
 					fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //바탕화면으로 기본폴더 설정
-																																															//fd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"; //필터 설정
-																																															//fd.FilterIndex = 1; //1번 선택시 txt , 2번 선택시 *.*
 					if (fd.ShowDialog() == DialogResult.OK)
 					{
 						filePath = fd.FileName; //전체 경로와 파일명 //선택한 파일명은 fd.SafeFileName
-					}
-				}
-				//경로텍스트박스 초기화
-				toolStripTextBoxPath.Clear();
-				//경로텍스트박스 경로내용추가
-				toolStripTextBoxPath.AppendText(filePath);
 
-				dataGridView1.Columns.Add("content", "");
-				dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-				dataGridView1.ColumnHeadersVisible = false;
-				//한줄씩 읽고 추가하기
-				string[] contents = System.IO.File.ReadAllLines(filePath);
-				if (contents.Length > 0)
-				{
-					for (int i = 0; i < contents.Length; i++)
+						//경로텍스트박스 초기화
+						toolStripTextBoxPath.Clear();
+						//경로텍스트박스 경로내용추가
+						toolStripTextBoxPath.AppendText(filePath);
+						tabPage1.Text = filePath;
+
+						//데이터그리드뷰 초기화
+						dataGridView1.Rows.Clear();
+						dataGridView1.Columns.Add("content", "");
+						dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+						dataGridView1.ColumnHeadersVisible = false;
+
+						//datagridview suspendlayout
+						dataGridView1.SuspendLayout();
+						//한줄씩 읽고 추가하기
+						string[] contents = System.IO.File.ReadAllLines(filePath);
+						if (contents.Length > 0)
+						{
+							for (int i = 0; i < contents.Length; i++)
+							{
+								dataGridView1.Rows.Add(contents[i]);
+							}
+						}
+						//datagrudvuew resumelayout
+						dataGridView1.ResumeLayout();
+					}
+					else
 					{
-						//(i+1).ToString() + 
-						dataGridView1.Rows.Add(contents[i]);
+						return; //취소했을때 함수 종료 (함수가 void일 경우에 해당)
 					}
 				}
+				//string checkPath = filePath;
+				//FolderCheck(checkPath);
+
 			}
 			catch (Exception)
 			{
 			}
 		}
+
+		//폴더 감시
+		private void FolderCheck(string checkPath)
+		{
+			System.IO.FileSystemWatcher watcher = new System.IO.FileSystemWatcher();
+			watcher.Path = checkPath;
+			watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName;
+
+			watcher.Changed += new FileSystemEventHandler(Changed);
+			//watcher.Created += new FileSystemEventHandler(Changed);
+			//watcher.Deleted += new FileSystemEventHandler(Changed);
+			//watcher.Renamed += new RenamedEventHandler(Renamed);
+			watcher.EnableRaisingEvents = true;
+			view_event += new view(Form1_view_event);
+		}
+
+		private void Form1_view_event(string value, string type, string checkPath)
+		{
+			//datagridview suspendlayout
+			dataGridView1.SuspendLayout();
+			//한줄씩 읽고 추가하기
+			string[] contents = System.IO.File.ReadAllLines(checkPath);
+			if (contents.Length > 0)
+			{
+				for (int i = 0; i < contents.Length; i++)
+				{
+					dataGridView1.Rows.Add(contents[i]);
+				}
+			}
+			//datagrudvuew resumelayout
+			dataGridView1.ResumeLayout();
+		}
+
+
+		private void Changed(object sender, FileSystemEventArgs e)
+		{
+			string msg = "File: " + e.FullPath + ". Change : " + e.ChangeType;
+			this.Invoke(view_event, new object[] { msg, "0" });
+		}
+		private void Renamed(object source, RenamedEventArgs e)
+		{
+			string msg = "File: " + e.OldFullPath + " renamed to " + e.FullPath;
+			this.Invoke(view_event, new object[] { msg, "1" });
+		}
+
+
 		private void toolStripButton2_Click(object sender, EventArgs e)
 		{
 			try
@@ -74,7 +136,21 @@ namespace BearTale
 		{
 			dataGridView1.GridColor = Color.White;
 			dataGridView1.CurrentCell = null;
+
+			tabPage1.Text = "";
+			OnFile = new OnDelegateFile(ListViewAdd); //OnFile 델리게이트에서 ListViewAdd를 실행시키자.
+
 		}
+
+		private void ListViewAdd(string fn, string fl, string fc) //리스트뷰에 들어온 데이터를 추가하자 
+		{
+			dataGridView1.Columns.Add("1","1");
+			dataGridView1.Columns.Add("2","2");
+			dataGridView1.Columns.Add("3","3");
+			string fSize = GetFileSize(Convert.ToDouble(fl));
+			this.dataGridView1.Rows.Add(new ListViewItem(new string[] { fn, fc, fSize }));
+		}
+
 
 		private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
 		{
@@ -84,7 +160,6 @@ namespace BearTale
 		private void toolStripTextBoxPath_Click(object sender, EventArgs e)
 		{
 		}
-
 		void numberCount(DataGridViewRowPostPaintEventArgs e)
 		{
 			try
@@ -102,10 +177,86 @@ namespace BearTale
 			{
 			}
 		}
-
 		private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			toolStripButton1_Click(sender,e);
+		}
+		private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+		}
+
+		Thread threadFileView = null; //파일조회 스레드 개체 생성
+		private delegate void OnDelegateFile(string fn, string fl, string fc);
+		private OnDelegateFile OnFile = null; //델리게이트 생성
+		bool HiddenFile = true; //전체 조회, False 일때는 숨김파일이 아닌경우만 조회
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			if (this.folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+			{
+				this.dataGridView1.Rows.Clear();
+				this.toolStripTextBoxPath.Text = this.folderBrowserDialog1.SelectedPath;
+
+				threadFileView = new Thread(new ParameterizedThreadStart(FileView));
+				threadFileView.Start(this.folderBrowserDialog1.SelectedPath); ///선택된 디렉토리를 매개변수로 넘기자.
+			}
+
+		}
+
+		private string GetFileSize(double byteCount) //파일사이즈를 Bytes,KB,MB,GB 단위로 표현하자.
+		{
+			string size = "0 Bytes";
+			if (byteCount >= 1024 * 1024 * 1024)
+				size = String.Format("{0:##.##}", byteCount / (1024 * 1024 * 1024)) + " GB";
+			else if (byteCount >= 1024 * 1024)
+				size = String.Format("{0:##.##}", byteCount / (1024 * 1024)) + " MB";
+			else if (byteCount >= 1024)
+				size = String.Format("{0:##.##}", byteCount / 1024) + " KB";
+			else if (byteCount > 0 && byteCount < 1024.0)
+				size = byteCount.ToString() + " Bytes";
+
+			return size;
+		}
+
+
+		private void FileView(object dir)
+		{
+			DirectoryInfo di = new DirectoryInfo((string)dir);
+			DirectoryInfo[] dti = di.GetDirectories();
+
+			foreach (var f in di.GetFiles())
+			{
+				if (HiddenFile == true) //전체 파일을 모두 조회한다.
+				{
+					Invoke(OnFile, f.Name, f.Length.ToString(),
+							f.CreationTime.ToString());
+				}
+				else
+				{
+					if (!f.Attributes.ToString().Contains(FileAttributes.Hidden.ToString())) // 속성이 숨김파일이 아닐 때만 조회한다.
+					{
+						Invoke(OnFile, f.Name, f.Length.ToString(),
+								f.CreationTime.ToString());
+					}
+				}
+			}
+
+			for (int i = 0; i < di.GetDirectories().Length; i++) ///하위 디렉토리 파일을 조회 하자.
+			{
+				try
+				{
+					FileView(dti[i].FullName);
+				}
+				catch
+				{
+					continue;
+				}
+			}
+		}
+
+		private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+		{
+
 		}
 	}
 }
