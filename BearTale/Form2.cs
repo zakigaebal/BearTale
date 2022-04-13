@@ -40,12 +40,12 @@ namespace BearTale
 			dataGridView1.Rows.Add(1);
 			int i = 0;
 
-					//텍스트박스컬럼설정
-	//		textboxColumn.Visible = true;
-		//	textboxColumn.HeaderText = "컬러";
+			//텍스트박스컬럼설정
+			//		textboxColumn.Visible = true;
+			//	textboxColumn.HeaderText = "컬러";
 
-	//		dataGridView1.Rows.Add(textboxColumn, "s");
-		//	textboxColumn.DefaultCellStyle.ForeColor = Color.FromName(colorComboBox1.Text);
+			//		dataGridView1.Rows.Add(textboxColumn, "s");
+			//	textboxColumn.DefaultCellStyle.ForeColor = Color.FromName(colorComboBox1.Text);
 			//textboxColumn.DefaultCellStyle.BackColor = Color.FromName(colorComboBox2.Text);
 
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
@@ -140,7 +140,7 @@ namespace BearTale
 			colorComboBox1.SelectedIndex = 0;
 			colorComboBox2.SelectedIndex = 1;
 
-			
+
 			dataGridView1.Columns.Add(textboxColumn);
 			textboxColumn.HeaderText = "color";
 			dataGridView1.Columns.Add("stringText", "내용");
@@ -170,7 +170,7 @@ namespace BearTale
 			//listBox1.BackColor = Color.FromName(colorComboBox2.Text);
 		}
 
-	
+
 
 		private void colorComboBox2_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -206,26 +206,46 @@ namespace BearTale
 			}
 			textBoxString.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
 		}
-	}
 
+		private void buttonOk_Click(object sender, EventArgs e)
+		{
+			Form1 Mainform = (Form1)Owner;
+			//데이터그리드뷰내용저장하기
+		}
+
+		private void textBoxString_TextChanged(object sender, EventArgs e)
+		{
+			if (dataGridView1.CurrentCell == null) 
+			{
+				return;
+			}
+			int rowIndex = dataGridView1.CurrentCell.RowIndex;
+
+			
+				dataGridView1.Rows[rowIndex].Cells[0].Value = textBoxString.Text;
+				dataGridView1.Rows[rowIndex].Cells[1].Value = textBoxString.Text;
+
+		}
+
+	}
 
 
 	//컬러클래스
 	public class MyListBoxItem
+	{
+		public MyListBoxItem(TextBox textcolor, Color c, string m)
 		{
-			public MyListBoxItem(TextBox textcolor, Color c,  string m)
-			{
-				textboxColor = textcolor;
-				ItemColor = c;
-				Message = m;
-			}
-			public TextBox textboxColor { get; set; }
-			public Color ItemColor { get; set; }
-			public string Message { get; set; }
+			textboxColor = textcolor;
+			ItemColor = c;
+			Message = m;
 		}
-
-	
+		public TextBox textboxColor { get; set; }
+		public Color ItemColor { get; set; }
+		public string Message { get; set; }
 	}
+
+
+}
 
 
 

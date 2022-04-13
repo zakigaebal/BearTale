@@ -64,7 +64,7 @@ namespace BearTale
 			try
 			{
 				Form2 newform2 = new Form2();
-				newform2.ShowDialog();
+				newform2.ShowDialog(this);
 			}
 			catch (Exception)
 			{

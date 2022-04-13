@@ -144,6 +144,7 @@
 			this.textBoxString.Name = "textBoxString";
 			this.textBoxString.Size = new System.Drawing.Size(519, 21);
 			this.textBoxString.TabIndex = 6;
+			this.textBoxString.TextChanged += new System.EventHandler(this.textBoxString_TextChanged);
 			// 
 			// buttonOk
 			// 
@@ -153,6 +154,7 @@
 			this.buttonOk.TabIndex = 8;
 			this.buttonOk.Text = "OK";
 			this.buttonOk.UseVisualStyleBackColor = true;
+			this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
 			// 
 			// button8
 			// 
