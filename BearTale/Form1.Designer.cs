@@ -38,20 +38,18 @@
 			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripTextBoxPath = new System.Windows.Forms.ToolStripTextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.checkBoxTail = new System.Windows.Forms.CheckBox();
+			this.clearToolStripMenuItemClear = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-			this.tabControl1.SuspendLayout();
-			this.tabPage1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
@@ -67,7 +65,9 @@
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.clearToolStripMenuItemClear,
+            this.clearAllToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
@@ -129,39 +129,6 @@
 			this.panel1.Size = new System.Drawing.Size(800, 401);
 			this.panel1.TabIndex = 3;
 			// 
-			// dataGridView1
-			// 
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.RowTemplate.Height = 23;
-			this.dataGridView1.Size = new System.Drawing.Size(786, 369);
-			this.dataGridView1.TabIndex = 0;
-			this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
-			this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
-			// 
-			// tabControl1
-			// 
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl1.Location = new System.Drawing.Point(0, 0);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(800, 401);
-			this.tabControl1.TabIndex = 0;
-			// 
-			// tabPage1
-			// 
-			this.tabPage1.Controls.Add(this.dataGridView1);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(792, 375);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "tabPage1";
-			this.tabPage1.UseVisualStyleBackColor = true;
-			// 
 			// button1
 			// 
 			this.button1.Location = new System.Drawing.Point(311, 24);
@@ -187,11 +154,44 @@
 			this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
 			this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
 			// 
+			// checkBoxTail
+			// 
+			this.checkBoxTail.AutoSize = true;
+			this.checkBoxTail.Location = new System.Drawing.Point(173, 28);
+			this.checkBoxTail.Name = "checkBoxTail";
+			this.checkBoxTail.Size = new System.Drawing.Size(88, 16);
+			this.checkBoxTail.TabIndex = 6;
+			this.checkBoxTail.Text = "Follow_Tail";
+			this.checkBoxTail.UseVisualStyleBackColor = true;
+			// 
+			// clearToolStripMenuItemClear
+			// 
+			this.clearToolStripMenuItemClear.Name = "clearToolStripMenuItemClear";
+			this.clearToolStripMenuItemClear.Size = new System.Drawing.Size(180, 22);
+			this.clearToolStripMenuItemClear.Text = "Clear";
+			this.clearToolStripMenuItemClear.Click += new System.EventHandler(this.clearToolStripMenuItemClear_Click);
+			// 
+			// clearAllToolStripMenuItem
+			// 
+			this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
+			this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.clearAllToolStripMenuItem.Text = "ClearAll";
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl1.Location = new System.Drawing.Point(0, 0);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(800, 401);
+			this.tabControl1.TabIndex = 0;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.checkBoxTail);
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.panel1);
@@ -208,9 +208,6 @@
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.panel1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-			this.tabControl1.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -226,14 +223,15 @@
 		private System.Windows.Forms.ToolStripButton toolStripButton2;
 		private System.Windows.Forms.ToolStripTextBox toolStripTextBoxPath;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+		private System.Windows.Forms.CheckBox checkBoxTail;
+		private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItemClear;
+		private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
+		private System.Windows.Forms.TabControl tabControl1;
 	}
 }
 

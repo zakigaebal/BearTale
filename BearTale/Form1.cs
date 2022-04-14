@@ -16,17 +16,21 @@ namespace BearTale
 	{
 		delegate void view(string value, string type, string checkPath);
 		private view view_event;
+		DataGridView dgv = new DataGridView();
+		//탭페이지 선언
+		TabPage page = new TabPage();
 
 		public Form1()
 		{
 			InitializeComponent();
 		}
 
-		private void toolStripButton1_Click(object sender, EventArgs e)
+		private void addTab()
 		{
 			try
 			{
 				string filePath = string.Empty;
+				string fileName = string.Empty;
 				string fileContent = string.Empty;
 
 				using (OpenFileDialog fd = new OpenFileDialog())
@@ -34,46 +38,61 @@ namespace BearTale
 					fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //바탕화면으로 기본폴더 설정
 					if (fd.ShowDialog() == DialogResult.OK)
 					{
-						filePath = fd.FileName; //전체 경로와 파일명 //선택한 파일명은 fd.SafeFileName
+						filePath = fd.FileName; //전체 경로와 파일명 
+						fileName = fd.SafeFileName; //선택한 파일명은 fd.SafeFileName
 
 						//경로텍스트박스 초기화
 						toolStripTextBoxPath.Clear();
 						//경로텍스트박스 경로내용추가
-						toolStripTextBoxPath.AppendText(filePath);
-						tabPage1.Text = filePath;
-
-						//데이터그리드뷰 초기화
-						dataGridView1.Rows.Clear();
-						dataGridView1.Columns.Add("content", "");
-						dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-						dataGridView1.ColumnHeadersVisible = false;
-
+						toolStripTextBoxPath.AppendText(fileName);
+						//데이터그리드뷰 선언
+						dgv.Dock = DockStyle.Fill;
+						//dgv에 내용 입력
+						dgv.Columns.Add("content", "");
+						dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+						dgv.ColumnHeadersVisible = false;
+						//dgv row 번호입력
+						dgv.RowPostPaint += dgv_RowPostPaint;
+						
 						//datagridview suspendlayout
-						dataGridView1.SuspendLayout();
+						dgv.SuspendLayout();
 						//한줄씩 읽고 추가하기
 						string[] contents = System.IO.File.ReadAllLines(filePath);
 						if (contents.Length > 0)
 						{
 							for (int i = 0; i < contents.Length; i++)
 							{
-								dataGridView1.Rows.Add(contents[i]);
+								dgv.Rows.Add(contents[i]);
 							}
 						}
 						//datagrudvuew resumelayout
-						dataGridView1.ResumeLayout();
+						dgv.ResumeLayout();
+
+
+						//탭페이지 선언
+						TabPage page = new TabPage(fileName);
+
+						//탭페이지에 데이터그리드뷰 dgv 입력
+						page.Controls.Add(dgv);
+						//탭컨트롤에 탭페이지 추가
+						tabControl1.TabPages.Add(page);
+
 					}
 					else
 					{
 						return; //취소했을때 함수 종료 (함수가 void일 경우에 해당)
 					}
 				}
-				//string checkPath = filePath;
-				//FolderCheck(checkPath);
-
 			}
 			catch (Exception)
 			{
 			}
+		}
+
+		private void toolStripButton1_Click(object sender, EventArgs e)
+		{
+			//탭추가
+			addTab();
 		}
 
 		//폴더 감시
@@ -94,20 +113,74 @@ namespace BearTale
 		private void Form1_view_event(string value, string type, string checkPath)
 		{
 			//datagridview suspendlayout
-			dataGridView1.SuspendLayout();
+			dgv.SuspendLayout();
 			//한줄씩 읽고 추가하기
 			string[] contents = System.IO.File.ReadAllLines(checkPath);
 			if (contents.Length > 0)
 			{
 				for (int i = 0; i < contents.Length; i++)
 				{
-					dataGridView1.Rows.Add(contents[i]);
+					dgv.Rows.Add(contents[i]);
 				}
 			}
 			//datagrudvuew resumelayout
-			dataGridView1.ResumeLayout();
+			dgv.ResumeLayout();
 		}
 
+
+		private void openFile()
+		{
+			try
+			{
+				string filePath = string.Empty;
+				string fileContent = string.Empty;
+
+				using (OpenFileDialog fd = new OpenFileDialog())
+				{
+					fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //바탕화면으로 기본폴더 설정
+					if (fd.ShowDialog() == DialogResult.OK)
+					{
+						filePath = fd.FileName; //전체 경로와 파일명 //선택한 파일명은 fd.SafeFileName
+
+						//경로텍스트박스 초기화
+						toolStripTextBoxPath.Clear();
+						//경로텍스트박스 경로내용추가
+						toolStripTextBoxPath.AppendText(filePath);
+						page.Text = filePath;
+
+						//데이터그리드뷰 초기화
+						dgv.Rows.Clear();
+						dgv.Columns.Add("content", "");
+						dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+						dgv.ColumnHeadersVisible = false;
+
+						//datagridview suspendlayout
+						dgv.SuspendLayout();
+						//한줄씩 읽고 추가하기
+						string[] contents = System.IO.File.ReadAllLines(filePath);
+						if (contents.Length > 0)
+						{
+							for (int i = 0; i < contents.Length; i++)
+							{
+								dgv.Rows.Add(contents[i]);
+							}
+						}
+						//datagrudvuew resumelayout
+						dgv.ResumeLayout();
+					}
+					else
+					{
+						return; //취소했을때 함수 종료 (함수가 void일 경우에 해당)
+					}
+				}
+				//string checkPath = filePath;
+				//FolderCheck(checkPath);
+
+			}
+			catch (Exception)
+			{
+			}
+		}
 
 		private void Changed(object sender, FileSystemEventArgs e)
 		{
@@ -134,25 +207,26 @@ namespace BearTale
 		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			dataGridView1.GridColor = Color.White;
-			dataGridView1.CurrentCell = null;
+			dgv.GridColor = Color.White;
+			dgv.CurrentCell = null;
 
-			tabPage1.Text = "";
+			page.Text = "";
 			OnFile = new OnDelegateFile(ListViewAdd); //OnFile 델리게이트에서 ListViewAdd를 실행시키자.
-
+			dgv.ReadOnly = true;
+			
 		}
 
 		private void ListViewAdd(string fn, string fl, string fc) //리스트뷰에 들어온 데이터를 추가하자 
 		{
-			dataGridView1.Columns.Add("1","1");
-			dataGridView1.Columns.Add("2","2");
-			dataGridView1.Columns.Add("3","3");
+			dgv.Columns.Add("1", "1");
+			dgv.Columns.Add("2", "2");
+			dgv.Columns.Add("3", "3");
 			string fSize = GetFileSize(Convert.ToDouble(fl));
-			this.dataGridView1.Rows.Add(new ListViewItem(new string[] { fn, fc, fSize }));
+			this.dgv.Rows.Add(new ListViewItem(new string[] { fn, fc, fSize }));
 		}
 
 
-		private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+		private void dgv_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
 		{
 			numberCount(e);
 		}
@@ -179,9 +253,9 @@ namespace BearTale
 		}
 		private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			toolStripButton1_Click(sender,e);
+			toolStripButton1_Click(sender, e);
 		}
-		private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		private void dgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 		}
 
@@ -194,7 +268,7 @@ namespace BearTale
 		{
 			if (this.folderBrowserDialog1.ShowDialog() == DialogResult.OK)
 			{
-				this.dataGridView1.Rows.Clear();
+				this.dgv.Rows.Clear();
 				this.toolStripTextBoxPath.Text = this.folderBrowserDialog1.SelectedPath;
 
 				threadFileView = new Thread(new ParameterizedThreadStart(FileView));
@@ -257,6 +331,16 @@ namespace BearTale
 		private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
 		{
 
+		}
+
+		private void tabPage2_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void clearToolStripMenuItemClear_Click(object sender, EventArgs e)
+		{
+			tabControl1.Controls.Remove(tabControl1.SelectedTab);
 		}
 	}
 }

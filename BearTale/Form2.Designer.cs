@@ -40,14 +40,20 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.textBoxString = new System.Windows.Forms.TextBox();
 			this.buttonOk = new System.Windows.Forms.Button();
-			this.button8 = new System.Windows.Forms.Button();
+			this.buttonCancel = new System.Windows.Forms.Button();
 			this.buttonLoad = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.colorComboBox2 = new BearTale.ColorComboBox();
 			this.colorComboBox1 = new BearTale.ColorComboBox();
+			this.checkBoxIgnore = new System.Windows.Forms.CheckBox();
+			this.checkBoxInvert = new System.Windows.Forms.CheckBox();
+			this.checkBoxBold = new System.Windows.Forms.CheckBox();
+			this.checkBoxItalic = new System.Windows.Forms.CheckBox();
+			this.buttonCustom1 = new System.Windows.Forms.Button();
+			this.buttonCustom2 = new System.Windows.Forms.Button();
+			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+			this.colorDialog2 = new System.Windows.Forms.ColorDialog();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -55,7 +61,7 @@
 			// 
 			this.buttonAdd.Location = new System.Drawing.Point(12, 161);
 			this.buttonAdd.Name = "buttonAdd";
-			this.buttonAdd.Size = new System.Drawing.Size(47, 23);
+			this.buttonAdd.Size = new System.Drawing.Size(35, 23);
 			this.buttonAdd.TabIndex = 1;
 			this.buttonAdd.Text = "Add";
 			this.buttonAdd.UseVisualStyleBackColor = true;
@@ -63,9 +69,9 @@
 			// 
 			// buttonDelete
 			// 
-			this.buttonDelete.Location = new System.Drawing.Point(59, 161);
+			this.buttonDelete.Location = new System.Drawing.Point(46, 161);
 			this.buttonDelete.Name = "buttonDelete";
-			this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+			this.buttonDelete.Size = new System.Drawing.Size(49, 23);
 			this.buttonDelete.TabIndex = 2;
 			this.buttonDelete.Text = "Delete";
 			this.buttonDelete.UseVisualStyleBackColor = true;
@@ -73,9 +79,9 @@
 			// 
 			// buttonMoveUp
 			// 
-			this.buttonMoveUp.Location = new System.Drawing.Point(134, 161);
+			this.buttonMoveUp.Location = new System.Drawing.Point(94, 161);
 			this.buttonMoveUp.Name = "buttonMoveUp";
-			this.buttonMoveUp.Size = new System.Drawing.Size(75, 23);
+			this.buttonMoveUp.Size = new System.Drawing.Size(63, 23);
 			this.buttonMoveUp.TabIndex = 3;
 			this.buttonMoveUp.Text = "Move Up";
 			this.buttonMoveUp.UseVisualStyleBackColor = true;
@@ -83,9 +89,9 @@
 			// 
 			// buttonMoveDown
 			// 
-			this.buttonMoveDown.Location = new System.Drawing.Point(209, 161);
+			this.buttonMoveDown.Location = new System.Drawing.Point(156, 161);
 			this.buttonMoveDown.Name = "buttonMoveDown";
-			this.buttonMoveDown.Size = new System.Drawing.Size(88, 23);
+			this.buttonMoveDown.Size = new System.Drawing.Size(80, 23);
 			this.buttonMoveDown.TabIndex = 4;
 			this.buttonMoveDown.Text = "Move Down";
 			this.buttonMoveDown.UseVisualStyleBackColor = true;
@@ -103,7 +109,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(294, 187);
+			this.label2.Location = new System.Drawing.Point(234, 187);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(106, 12);
 			this.label2.TabIndex = 5;
@@ -111,7 +117,7 @@
 			// 
 			// buttonPageUp
 			// 
-			this.buttonPageUp.Location = new System.Drawing.Point(296, 161);
+			this.buttonPageUp.Location = new System.Drawing.Point(235, 161);
 			this.buttonPageUp.Name = "buttonPageUp";
 			this.buttonPageUp.Size = new System.Drawing.Size(63, 23);
 			this.buttonPageUp.TabIndex = 4;
@@ -121,9 +127,9 @@
 			// 
 			// buttonPageDown
 			// 
-			this.buttonPageDown.Location = new System.Drawing.Point(359, 161);
+			this.buttonPageDown.Location = new System.Drawing.Point(298, 161);
 			this.buttonPageDown.Name = "buttonPageDown";
-			this.buttonPageDown.Size = new System.Drawing.Size(88, 23);
+			this.buttonPageDown.Size = new System.Drawing.Size(78, 23);
 			this.buttonPageDown.TabIndex = 4;
 			this.buttonPageDown.Text = "Page Down";
 			this.buttonPageDown.UseVisualStyleBackColor = true;
@@ -142,32 +148,33 @@
 			// 
 			this.textBoxString.Location = new System.Drawing.Point(13, 241);
 			this.textBoxString.Name = "textBoxString";
-			this.textBoxString.Size = new System.Drawing.Size(519, 21);
+			this.textBoxString.Size = new System.Drawing.Size(449, 21);
 			this.textBoxString.TabIndex = 6;
 			this.textBoxString.TextChanged += new System.EventHandler(this.textBoxString_TextChanged);
 			// 
 			// buttonOk
 			// 
-			this.buttonOk.Location = new System.Drawing.Point(384, 265);
+			this.buttonOk.Location = new System.Drawing.Point(355, 262);
 			this.buttonOk.Name = "buttonOk";
-			this.buttonOk.Size = new System.Drawing.Size(75, 23);
+			this.buttonOk.Size = new System.Drawing.Size(45, 23);
 			this.buttonOk.TabIndex = 8;
 			this.buttonOk.Text = "OK";
 			this.buttonOk.UseVisualStyleBackColor = true;
 			this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
 			// 
-			// button8
+			// buttonCancel
 			// 
-			this.button8.Location = new System.Drawing.Point(459, 265);
-			this.button8.Name = "button8";
-			this.button8.Size = new System.Drawing.Size(75, 23);
-			this.button8.TabIndex = 8;
-			this.button8.Text = "CANCEL";
-			this.button8.UseVisualStyleBackColor = true;
+			this.buttonCancel.Location = new System.Drawing.Point(399, 262);
+			this.buttonCancel.Name = "buttonCancel";
+			this.buttonCancel.Size = new System.Drawing.Size(64, 23);
+			this.buttonCancel.TabIndex = 8;
+			this.buttonCancel.Text = "CANCEL";
+			this.buttonCancel.UseVisualStyleBackColor = true;
+			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
 			// buttonLoad
 			// 
-			this.buttonLoad.Location = new System.Drawing.Point(447, 161);
+			this.buttonLoad.Location = new System.Drawing.Point(375, 161);
 			this.buttonLoad.Name = "buttonLoad";
 			this.buttonLoad.Size = new System.Drawing.Size(42, 23);
 			this.buttonLoad.TabIndex = 9;
@@ -177,7 +184,7 @@
 			// 
 			// buttonSave
 			// 
-			this.buttonSave.Location = new System.Drawing.Point(489, 161);
+			this.buttonSave.Location = new System.Drawing.Point(417, 161);
 			this.buttonSave.Name = "buttonSave";
 			this.buttonSave.Size = new System.Drawing.Size(45, 23);
 			this.buttonSave.TabIndex = 10;
@@ -185,31 +192,13 @@
 			this.buttonSave.UseVisualStyleBackColor = true;
 			this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
 			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(165, 201);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(100, 21);
-			this.textBox1.TabIndex = 12;
-			this.textBox1.Text = "asdas";
-			this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(459, 198);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 14;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			// 
 			// dataGridView1
 			// 
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Location = new System.Drawing.Point(12, 5);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowTemplate.Height = 23;
-			this.dataGridView1.Size = new System.Drawing.Size(520, 150);
+			this.dataGridView1.Size = new System.Drawing.Size(449, 150);
 			this.dataGridView1.TabIndex = 15;
 			this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
 			this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -220,17 +209,10 @@
 			this.colorComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.colorComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.colorComboBox2.FormattingEnabled = true;
-			this.colorComboBox2.Items.AddRange(new object[] {
-            "Red",
-            "Blue",
-            "Green"});
-			this.colorComboBox2.Location = new System.Drawing.Point(296, 203);
-			this.colorComboBox2.MyColors = new string[] {
-        "Red",
-        "Blue",
-        "Green"};
+			this.colorComboBox2.Location = new System.Drawing.Point(235, 201);
+			this.colorComboBox2.MyColors = new string[0];
 			this.colorComboBox2.Name = "colorComboBox2";
-			this.colorComboBox2.Size = new System.Drawing.Size(121, 22);
+			this.colorComboBox2.Size = new System.Drawing.Size(199, 22);
 			this.colorComboBox2.TabIndex = 13;
 			this.colorComboBox2.SelectedIndexChanged += new System.EventHandler(this.colorComboBox2_SelectedIndexChanged);
 			this.colorComboBox2.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox2_SelectionChangeCommitted);
@@ -258,23 +240,88 @@
         "Orange",
         "Pink"};
 			this.colorComboBox1.Name = "colorComboBox1";
-			this.colorComboBox1.Size = new System.Drawing.Size(121, 22);
+			this.colorComboBox1.Size = new System.Drawing.Size(193, 22);
 			this.colorComboBox1.TabIndex = 11;
 			this.colorComboBox1.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox1_SelectionChangeCommitted);
+			// 
+			// checkBoxIgnore
+			// 
+			this.checkBoxIgnore.AutoSize = true;
+			this.checkBoxIgnore.Location = new System.Drawing.Point(12, 268);
+			this.checkBoxIgnore.Name = "checkBoxIgnore";
+			this.checkBoxIgnore.Size = new System.Drawing.Size(93, 16);
+			this.checkBoxIgnore.TabIndex = 16;
+			this.checkBoxIgnore.Text = "Ignore Case";
+			this.checkBoxIgnore.UseVisualStyleBackColor = true;
+			// 
+			// checkBoxInvert
+			// 
+			this.checkBoxInvert.AutoSize = true;
+			this.checkBoxInvert.Location = new System.Drawing.Point(104, 268);
+			this.checkBoxInvert.Name = "checkBoxInvert";
+			this.checkBoxInvert.Size = new System.Drawing.Size(93, 16);
+			this.checkBoxInvert.TabIndex = 16;
+			this.checkBoxInvert.Text = "Invert Match";
+			this.checkBoxInvert.UseVisualStyleBackColor = true;
+			// 
+			// checkBoxBold
+			// 
+			this.checkBoxBold.AutoSize = true;
+			this.checkBoxBold.Location = new System.Drawing.Point(196, 268);
+			this.checkBoxBold.Name = "checkBoxBold";
+			this.checkBoxBold.Size = new System.Drawing.Size(49, 16);
+			this.checkBoxBold.TabIndex = 16;
+			this.checkBoxBold.Text = "Bold";
+			this.checkBoxBold.UseVisualStyleBackColor = true;
+			this.checkBoxBold.CheckedChanged += new System.EventHandler(this.checkBoxBold_CheckedChanged);
+			// 
+			// checkBoxItalic
+			// 
+			this.checkBoxItalic.AutoSize = true;
+			this.checkBoxItalic.Location = new System.Drawing.Point(246, 268);
+			this.checkBoxItalic.Name = "checkBoxItalic";
+			this.checkBoxItalic.Size = new System.Drawing.Size(50, 16);
+			this.checkBoxItalic.TabIndex = 16;
+			this.checkBoxItalic.Text = "Italic";
+			this.checkBoxItalic.UseVisualStyleBackColor = true;
+			// 
+			// buttonCustom1
+			// 
+			this.buttonCustom1.Location = new System.Drawing.Point(205, 201);
+			this.buttonCustom1.Name = "buttonCustom1";
+			this.buttonCustom1.Size = new System.Drawing.Size(26, 23);
+			this.buttonCustom1.TabIndex = 17;
+			this.buttonCustom1.Text = "c";
+			this.buttonCustom1.UseVisualStyleBackColor = true;
+			this.buttonCustom1.Click += new System.EventHandler(this.buttonCustom1_Click);
+			// 
+			// buttonCustom2
+			// 
+			this.buttonCustom2.Location = new System.Drawing.Point(434, 201);
+			this.buttonCustom2.Name = "buttonCustom2";
+			this.buttonCustom2.Size = new System.Drawing.Size(26, 23);
+			this.buttonCustom2.TabIndex = 17;
+			this.buttonCustom2.Text = "c";
+			this.buttonCustom2.UseVisualStyleBackColor = true;
+			this.buttonCustom2.Click += new System.EventHandler(this.buttonCustom2_Click);
 			// 
 			// Form2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(548, 289);
+			this.ClientSize = new System.Drawing.Size(472, 287);
+			this.Controls.Add(this.buttonCustom2);
+			this.Controls.Add(this.buttonCustom1);
+			this.Controls.Add(this.checkBoxItalic);
+			this.Controls.Add(this.checkBoxBold);
+			this.Controls.Add(this.checkBoxInvert);
+			this.Controls.Add(this.checkBoxIgnore);
 			this.Controls.Add(this.dataGridView1);
-			this.Controls.Add(this.button1);
 			this.Controls.Add(this.colorComboBox2);
-			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.colorComboBox1);
 			this.Controls.Add(this.buttonSave);
 			this.Controls.Add(this.buttonLoad);
-			this.Controls.Add(this.button8);
+			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.buttonOk);
 			this.Controls.Add(this.textBoxString);
 			this.Controls.Add(this.label2);
@@ -309,13 +356,19 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBoxString;
 		private System.Windows.Forms.Button buttonOk;
-		private System.Windows.Forms.Button button8;
+		private System.Windows.Forms.Button buttonCancel;
 		private System.Windows.Forms.Button buttonLoad;
 		private System.Windows.Forms.Button buttonSave;
 		private ColorComboBox colorComboBox1;
-		private System.Windows.Forms.TextBox textBox1;
 		private ColorComboBox colorComboBox2;
-		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.CheckBox checkBoxIgnore;
+		private System.Windows.Forms.CheckBox checkBoxInvert;
+		private System.Windows.Forms.CheckBox checkBoxBold;
+		private System.Windows.Forms.CheckBox checkBoxItalic;
+		private System.Windows.Forms.Button buttonCustom1;
+		private System.Windows.Forms.Button buttonCustom2;
+		private System.Windows.Forms.ColorDialog colorDialog1;
+		private System.Windows.Forms.ColorDialog colorDialog2;
 	}
 }

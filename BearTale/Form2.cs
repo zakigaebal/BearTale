@@ -41,7 +41,7 @@ namespace BearTale
 			//dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1;
 
 			//데이터그리드뷰 현재셀 취소
-			dataGridView1.CurrentCell = null;
+			//dataGridView1.CurrentCell = null;
 
 		}
 
@@ -207,8 +207,7 @@ namespace BearTale
 
 		private void Form2_Load(object sender, EventArgs e)
 		{
-			colorComboBox1.SelectedIndex = 0;
-			colorComboBox2.SelectedIndex = 1;
+			dataGridView1.ColumnHeadersVisible = false;
 
 
 			dataGridView1.Columns.Add(textboxColumn);
@@ -226,6 +225,46 @@ namespace BearTale
 			dataGridView1.GridColor = Color.White;
 			//dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridView1.SelectAll();
+
+			//mycolors.
+			colorComboBox1.Items.Add("Custom");
+			colorComboBox1.Items.Add("White");
+			colorComboBox1.Items.Add("Red");
+			colorComboBox1.Items.Add("Green");
+			colorComboBox1.Items.Add("Blue");
+			colorComboBox1.Items.Add("Yellow");
+			colorComboBox1.Items.Add("Cyan");
+			colorComboBox1.Items.Add("Magenta");
+			colorComboBox1.Items.Add("DarkRed");
+			colorComboBox1.Items.Add("DarkGreen");
+			colorComboBox1.Items.Add("DarkBlue");
+			colorComboBox1.Items.Add("DarkYellow");
+			colorComboBox1.Items.Add("DarkCyan");
+			colorComboBox1.Items.Add("DarkMagenta");
+
+			colorComboBox2.Items.Add("Custom");
+			colorComboBox2.Items.Add("White");
+			colorComboBox2.Items.Add("Red");
+			colorComboBox2.Items.Add("Green");
+			colorComboBox2.Items.Add("Blue");
+			colorComboBox2.Items.Add("Yellow");
+			colorComboBox2.Items.Add("Cyan");
+			colorComboBox2.Items.Add("Magenta");
+			colorComboBox2.Items.Add("DarkRed");
+			colorComboBox2.Items.Add("DarkGreen");
+			colorComboBox2.Items.Add("DarkBlue");
+			colorComboBox2.Items.Add("DarkYellow");
+			colorComboBox2.Items.Add("DarkCyan");
+			colorComboBox2.Items.Add("DarkMagenta");
+
+
+			colorComboBox1.SelectedIndex = 3;
+			colorComboBox2.SelectedIndex = 5;
+
+			dataGridView1.Columns[0].Resizable = DataGridViewTriState.False;
+			//dataGridView1.MultiSelect = true;
+			dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dataGridView1.ReadOnly = true;
 		}
 
 
@@ -235,7 +274,6 @@ namespace BearTale
 			{
 				return;
 			}
-			textBox1.ForeColor = Color.FromName(colorComboBox1.Text);
 			int rowIndex = dataGridView1.CurrentCell.RowIndex;
 			dataGridView1.Rows[rowIndex].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
 		}
@@ -246,7 +284,6 @@ namespace BearTale
 			{
 				return;
 			}
-			textBox1.BackColor = Color.FromName(colorComboBox2.Text);
 			int rowIndex = dataGridView1.CurrentCell.RowIndex;
 			dataGridView1.Rows[rowIndex].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
 		}
@@ -275,9 +312,9 @@ namespace BearTale
 			StringFormat drawFormat = new StringFormat();
 			//drawFormat.FormatFlags = StringFormatFlags.DirectionVertical;
 			drawFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft;
-			using (Brush brush = new SolidBrush(Color.Red))
+			using (Brush brush = new SolidBrush(Color.Black))
 			{
-				e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, brush, e.RowBounds.Location.X + 35, e.RowBounds.Location.Y + 4, drawFormat);
+				e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, brush, e.RowBounds.Location.X + 30, e.RowBounds.Location.Y + 4, drawFormat);
 			}
 		}
 
@@ -290,6 +327,19 @@ namespace BearTale
 			textBoxString.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
 			colorComboBox1.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Style.ForeColor.Name.ToString();
 			colorComboBox2.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Style.BackColor.Name.ToString();
+			//if (dataGridView1.Columns[0].DefaultCellStyle.Font == new Font(dataGridView1.Rows[e.RowIndex].Cells[0].Style.Font, FontStyle.Bold))
+			//{
+			//	checkBoxBold.Checked = true;
+			//}
+
+		// 내가원하는 Columns의 index값과 기본 font의 값이 필요
+		// DataGridView.Columns[i].DefaultCellStyle.Font = new Font(DataGridView.Columns[i].DefaultCellStyle.Font, FontStyle.Underline); 
+		// 만약 특정 셀의 Font가 없는 경우는 아래의 코드 참고
+		// DataGridView.Columns[i].DefaultCellStyle.Font = new Font(DataGridView.DefaultCellStyle.Font, FontStyle.Underline); 
+		// 실제 예시
+		// dgvODBCList.Columns[1].DefaultCellStyle.Font = new Font(dgvODBCList.DefaultCellStyle.Font, FontStyle.Underline);
+
+
 		}
 
 		private void buttonOk_Click(object sender, EventArgs e)
@@ -304,7 +354,7 @@ namespace BearTale
 			//	dataGridView1.Rows[rowindex].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
 			//	dataGridView1.Rows[rowindex].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
 			//}
-
+			this.Close();
 		}
 
 		private void textBoxString_TextChanged(object sender, EventArgs e)
@@ -321,25 +371,72 @@ namespace BearTale
 
 		}
 
-
-	}
-
-
-	//컬러클래스
-	public class MyListBoxItem
-	{
-		public MyListBoxItem(TextBox textcolor, Color c, string m)
+		private void buttonCancel_Click(object sender, EventArgs e)
 		{
-			textboxColor = textcolor;
-			ItemColor = c;
-			Message = m;
+			this.Close();
 		}
-		public TextBox textboxColor { get; set; }
-		public Color ItemColor { get; set; }
-		public string Message { get; set; }
+
+		private void buttonCustom1_Click(object sender, EventArgs e)
+		{
+			if (colorDialog1.ShowDialog() == DialogResult.OK)
+			{
+				if (dataGridView1.CurrentCell == null)
+				{
+					colorComboBox1.ForeColor = colorDialog1.Color;
+					colorComboBox1.Text = "Custom";
+					return;
+				}
+				dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Style.ForeColor = colorDialog1.Color;
+				colorComboBox1.Text = "Custom";
+			}
+		}
+
+		private void buttonCustom2_Click(object sender, EventArgs e)
+		{
+			if (colorDialog2.ShowDialog() == DialogResult.OK)
+			{
+				if (dataGridView1.CurrentCell == null)
+				{
+					colorComboBox2.ForeColor = colorDialog2.Color;
+					colorComboBox2.Text = "Custom";
+					return;
+				}
+				dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Style.BackColor = colorDialog1.Color;
+				colorComboBox2.Text = "Custom";
+
+			}
+		}
+
+
+		//컬러클래스
+		public class MyListBoxItem
+		{
+			public MyListBoxItem(TextBox textcolor, Color c, string m)
+			{
+				textboxColor = textcolor;
+				ItemColor = c;
+				Message = m;
+			}
+			public TextBox textboxColor { get; set; }
+			public Color ItemColor { get; set; }
+			public string Message { get; set; }
+		}
+
+		private void checkBoxBold_CheckedChanged(object sender, EventArgs e)
+		{
+			int rowindex = dataGridView1.CurrentCell.RowIndex;
+			if (checkBoxBold.Checked)
+			{
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+			}
+			else
+			{
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
+			}
+
+
+		}
 	}
-
-
 }
 
 
