@@ -44,8 +44,6 @@
 			this.buttonLoad = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.colorComboBox2 = new BearTale.ColorComboBox();
-			this.colorComboBox1 = new BearTale.ColorComboBox();
 			this.checkBoxIgnore = new System.Windows.Forms.CheckBox();
 			this.checkBoxInvert = new System.Windows.Forms.CheckBox();
 			this.checkBoxBold = new System.Windows.Forms.CheckBox();
@@ -54,6 +52,8 @@
 			this.buttonCustom2 = new System.Windows.Forms.Button();
 			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.colorDialog2 = new System.Windows.Forms.ColorDialog();
+			this.colorComboBox2 = new BearTale.ColorComboBox();
+			this.colorComboBox1 = new BearTale.ColorComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -202,47 +202,9 @@
 			this.dataGridView1.TabIndex = 15;
 			this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
 			this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+			this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+			this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
 			this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
-			// 
-			// colorComboBox2
-			// 
-			this.colorComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-			this.colorComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.colorComboBox2.FormattingEnabled = true;
-			this.colorComboBox2.Location = new System.Drawing.Point(235, 201);
-			this.colorComboBox2.MyColors = new string[0];
-			this.colorComboBox2.Name = "colorComboBox2";
-			this.colorComboBox2.Size = new System.Drawing.Size(199, 22);
-			this.colorComboBox2.TabIndex = 13;
-			this.colorComboBox2.SelectedIndexChanged += new System.EventHandler(this.colorComboBox2_SelectedIndexChanged);
-			this.colorComboBox2.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox2_SelectionChangeCommitted);
-			// 
-			// colorComboBox1
-			// 
-			this.colorComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.colorComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.colorComboBox1.FormattingEnabled = true;
-			this.colorComboBox1.Items.AddRange(new object[] {
-            "Black",
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow",
-            "Orange",
-            "Pink"});
-			this.colorComboBox1.Location = new System.Drawing.Point(12, 201);
-			this.colorComboBox1.MyColors = new string[] {
-        "Black",
-        "Red",
-        "Blue",
-        "Green",
-        "Yellow",
-        "Orange",
-        "Pink"};
-			this.colorComboBox1.Name = "colorComboBox1";
-			this.colorComboBox1.Size = new System.Drawing.Size(193, 22);
-			this.colorComboBox1.TabIndex = 11;
-			this.colorComboBox1.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox1_SelectionChangeCommitted);
 			// 
 			// checkBoxIgnore
 			// 
@@ -284,6 +246,7 @@
 			this.checkBoxItalic.TabIndex = 16;
 			this.checkBoxItalic.Text = "Italic";
 			this.checkBoxItalic.UseVisualStyleBackColor = true;
+			this.checkBoxItalic.CheckedChanged += new System.EventHandler(this.checkBoxItalic_CheckedChanged);
 			// 
 			// buttonCustom1
 			// 
@@ -305,11 +268,51 @@
 			this.buttonCustom2.UseVisualStyleBackColor = true;
 			this.buttonCustom2.Click += new System.EventHandler(this.buttonCustom2_Click);
 			// 
+			// colorComboBox2
+			// 
+			this.colorComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.colorComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.colorComboBox2.FormattingEnabled = true;
+			this.colorComboBox2.Location = new System.Drawing.Point(235, 201);
+			this.colorComboBox2.MyColors = new string[0];
+			this.colorComboBox2.Name = "colorComboBox2";
+			this.colorComboBox2.Size = new System.Drawing.Size(199, 22);
+			this.colorComboBox2.TabIndex = 13;
+			this.colorComboBox2.SelectedIndexChanged += new System.EventHandler(this.colorComboBox2_SelectedIndexChanged);
+			this.colorComboBox2.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox2_SelectionChangeCommitted);
+			// 
+			// colorComboBox1
+			// 
+			this.colorComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+			this.colorComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.colorComboBox1.FormattingEnabled = true;
+			this.colorComboBox1.Items.AddRange(new object[] {
+            "Black",
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow",
+            "Orange",
+            "Pink"});
+			this.colorComboBox1.Location = new System.Drawing.Point(12, 201);
+			this.colorComboBox1.MyColors = new string[] {
+        "Black",
+        "Red",
+        "Blue",
+        "Green",
+        "Yellow",
+        "Orange",
+        "Pink"};
+			this.colorComboBox1.Name = "colorComboBox1";
+			this.colorComboBox1.Size = new System.Drawing.Size(193, 22);
+			this.colorComboBox1.TabIndex = 11;
+			this.colorComboBox1.SelectionChangeCommitted += new System.EventHandler(this.colorComboBox1_SelectionChangeCommitted);
+			// 
 			// Form2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(472, 287);
+			this.ClientSize = new System.Drawing.Size(470, 287);
 			this.Controls.Add(this.buttonCustom2);
 			this.Controls.Add(this.buttonCustom1);
 			this.Controls.Add(this.checkBoxItalic);

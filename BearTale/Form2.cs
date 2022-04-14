@@ -14,14 +14,16 @@ namespace BearTale
 {
 	public partial class Form2 : Form
 	{
+		private bool _cancelEdit = false;
+		ListViewItem curItem;
+		ListViewItem.ListViewSubItem curSbItem;
 		DataGridViewTextBoxColumn textboxColumn = new DataGridViewTextBoxColumn();
 		public Form2()
 		{
 			InitializeComponent();
 		}
 
-
-
+	
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
 			if (textBoxString.Text == "")
@@ -32,8 +34,11 @@ namespace BearTale
 			dataGridView1.Rows.Add(1);
 
 			// 데이터그리드뷰 value값 지정
-			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
-			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
+			textboxColumn.DefaultCellStyle.ForeColor = Color.FromName(colorComboBox1.Text);
+			textboxColumn.DefaultCellStyle.BackColor = Color.FromName(colorComboBox2.Text);
+
+			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
+			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Value = textBoxString.Text;
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[1].Value = textBoxString.Text;
 
@@ -44,11 +49,16 @@ namespace BearTale
 			//dataGridView1.CurrentCell = null;
 
 		}
-
 		private void buttonDelete_Click(object sender, EventArgs e)
 		{
+			if (dataGridView1.CurrentCell == null)
+			{
+				return;
+			}
+		int currentRow = dataGridView1.CurrentCell.RowIndex;
+
 			//데이터그리드뷰 해당row셀 삭제
-			dataGridView1.Rows.Remove(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex]);
+			dataGridView1.Rows.Remove(dataGridView1.Rows[currentRow]);
 		}
 
 		private void buttonMoveUp_Click(object sender, EventArgs e)
@@ -180,6 +190,7 @@ namespace BearTale
 
 		private void buttonLoad_Click(object sender, EventArgs e)
 		{
+		
 			dataGridView1.Rows.Clear();
 			string fileName = "high.xml";
 			List<List<string>> data = new List<List<string>>();
@@ -188,6 +199,14 @@ namespace BearTale
 				data = (List<List<string>>)xs.Deserialize(tr);
 			foreach (List<string> rowData in data)
 				dataGridView1.Rows.Add(rowData.ToArray());
+
+			dataGridView1.CellFormatting += dataGridView1_CellFormatting;
+
+		}
+
+		private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+
 		}
 
 		private void buttonPageUp_Click(object sender, EventArgs e)
@@ -207,11 +226,13 @@ namespace BearTale
 
 		private void Form2_Load(object sender, EventArgs e)
 		{
-			dataGridView1.ColumnHeadersVisible = false;
+			dataGridView1.BringToFront();
 
 
+			//dataGridView1.Columns.Add(textboxColumn);
+			
+			//textboxColumn.HeaderText = "color";
 			dataGridView1.Columns.Add(textboxColumn);
-			textboxColumn.HeaderText = "color";
 			dataGridView1.Columns.Add("stringText", "내용");
 
 			dataGridView1.AllowUserToAddRows = false;
@@ -265,6 +286,8 @@ namespace BearTale
 			//dataGridView1.MultiSelect = true;
 			dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			dataGridView1.ReadOnly = true;
+			dataGridView1.ColumnHeadersVisible = false;
+
 		}
 
 
@@ -276,6 +299,7 @@ namespace BearTale
 			}
 			int rowIndex = dataGridView1.CurrentCell.RowIndex;
 			dataGridView1.Rows[rowIndex].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
+			//textboxColumn.DefaultCellStyle.ForeColor = Color.FromName(colorComboBox1.Text);
 		}
 
 		private void colorComboBox2_SelectionChangeCommitted(object sender, EventArgs e)
@@ -286,6 +310,7 @@ namespace BearTale
 			}
 			int rowIndex = dataGridView1.CurrentCell.RowIndex;
 			dataGridView1.Rows[rowIndex].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
+			//textboxColumn.DefaultCellStyle.BackColor = Color.FromName(colorComboBox2.Text);
 		}
 
 
@@ -325,6 +350,8 @@ namespace BearTale
 				return;
 			}
 			textBoxString.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+		//	colorComboBox1.Text = textboxColumn.DefaultCellStyle.ForeColor.ToString();
+		//	colorComboBox2.Text = textboxColumn.DefaultCellStyle.BackColor.ToString();
 			colorComboBox1.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Style.ForeColor.Name.ToString();
 			colorComboBox2.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Style.BackColor.Name.ToString();
 			//if (dataGridView1.Columns[0].DefaultCellStyle.Font == new Font(dataGridView1.Rows[e.RowIndex].Cells[0].Style.Font, FontStyle.Bold))
@@ -332,12 +359,12 @@ namespace BearTale
 			//	checkBoxBold.Checked = true;
 			//}
 
-		// 내가원하는 Columns의 index값과 기본 font의 값이 필요
-		// DataGridView.Columns[i].DefaultCellStyle.Font = new Font(DataGridView.Columns[i].DefaultCellStyle.Font, FontStyle.Underline); 
-		// 만약 특정 셀의 Font가 없는 경우는 아래의 코드 참고
-		// DataGridView.Columns[i].DefaultCellStyle.Font = new Font(DataGridView.DefaultCellStyle.Font, FontStyle.Underline); 
-		// 실제 예시
-		// dgvODBCList.Columns[1].DefaultCellStyle.Font = new Font(dgvODBCList.DefaultCellStyle.Font, FontStyle.Underline);
+			// 내가원하는 Columns의 index값과 기본 font의 값이 필요
+			// DataGridView.Columns[i].DefaultCellStyle.Font = new Font(DataGridView.Columns[i].DefaultCellStyle.Font, FontStyle.Underline); 
+			// 만약 특정 셀의 Font가 없는 경우는 아래의 코드 참고
+			// DataGridView.Columns[i].DefaultCellStyle.Font = new Font(DataGridView.DefaultCellStyle.Font, FontStyle.Underline); 
+			// 실제 예시
+			// dgvODBCList.Columns[1].DefaultCellStyle.Font = new Font(dgvODBCList.DefaultCellStyle.Font, FontStyle.Underline);
 
 
 		}
@@ -427,6 +454,7 @@ namespace BearTale
 			int rowindex = dataGridView1.CurrentCell.RowIndex;
 			if (checkBoxBold.Checked)
 			{
+				checkBoxItalic.Checked = false;
 				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
 			}
 			else
@@ -435,6 +463,37 @@ namespace BearTale
 			}
 
 
+		}
+
+		private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+		{
+//		 dataGridView1.Columns[0].DefaultHeaderCellType.BorderColor = System.Drawing.Color.Red;
+
+		}
+
+		private void FileListView_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void checkBoxItalic_CheckedChanged(object sender, EventArgs e)
+		{
+			int rowindex = dataGridView1.CurrentCell.RowIndex;
+			if (checkBoxItalic.Checked)
+			{
+				checkBoxBold.Checked = false;
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
+			}
+			else
+			{
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
+			}
+		}
+
+		private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			MessageBox.Show("선택한 row의 0번째cell의 값 == " + dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue.ToString());
+			//MessageBox.Show("선택한 row의 0번째cell의 값 == " + dataGridView1.Rows[e.RowIndex].Cells[0].col.ToString());
 		}
 	}
 }

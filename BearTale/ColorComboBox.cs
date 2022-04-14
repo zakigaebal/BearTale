@@ -28,7 +28,7 @@ namespace BearTale
 
     //the default colors from list
 
-    private string[] arr_MyColors = { "Black", "Red", "Blue", "Green" };
+    private string[] arr_MyColors = { "Custom", "Black", "Red", "Blue", "Green"  };
 
     protected int inMargin;
 

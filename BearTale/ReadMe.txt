@@ -2,13 +2,17 @@
 파일을 열었을때 데이터 로드해서 데이터그리드뷰에 보여주기
 하이라이트 버튼 클릭시 윈폼 띄우고나서 하이라이트폼 만들기
 ignore case -> 대소문자 구분없이 색칠칠하기
+드래그드랍요소
 invert match -> 해당문자열을 제외하고 색칠하기
 컬러피커 아이콘 넣기
 foreground color 넣기
+ok를 눌렀을때 값저장
 
+정리
+값을 어떻게 저장할것인지...
 
 
 수정내용 날짜별
 4/14
 확인,취소시 this.close() 작동
-foreground 많이 넣기
+foreground,background 넣기
