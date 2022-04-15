@@ -14,6 +14,8 @@ namespace BearTale
 {
 	public partial class Form1 : Form
 	{
+		private int rowIndexOfItemUnderMouseToDrop;
+		private int rowIndexFromMouseDown;
 		delegate void view(string value, string type, string checkPath);
 		private view view_event;
 		DataGridView dgv = new DataGridView();
@@ -193,8 +195,7 @@ namespace BearTale
 			this.Invoke(view_event, new object[] { msg, "1" });
 		}
 
-
-		private void toolStripButton2_Click(object sender, EventArgs e)
+		private void highLighting()
 		{
 			try
 			{
@@ -205,6 +206,12 @@ namespace BearTale
 			{
 			}
 		}
+
+
+		private void toolStripButton2_Click(object sender, EventArgs e)
+		{
+			highLighting();
+		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			dgv.GridColor = Color.White;
@@ -213,7 +220,8 @@ namespace BearTale
 			page.Text = "";
 			OnFile = new OnDelegateFile(ListViewAdd); //OnFile 델리게이트에서 ListViewAdd를 실행시키자.
 			dgv.ReadOnly = true;
-			
+			comboBoxUtf.Items.Add("UTF-8");
+			comboBoxUtf.SelectedIndex = 0;
 		}
 
 		private void ListViewAdd(string fn, string fl, string fc) //리스트뷰에 들어온 데이터를 추가하자 
@@ -341,6 +349,40 @@ namespace BearTale
 		private void clearToolStripMenuItemClear_Click(object sender, EventArgs e)
 		{
 			tabControl1.Controls.Remove(tabControl1.SelectedTab);
+		}
+
+		private void aboutBearTaliToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void highlightingToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			highLighting();
+		}
+
+		private void checkBoxTail_CheckedChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void tabControl1_DragDrop(object sender, DragEventArgs e)
+		{
+			Point clientPoint = dgv.PointToClient(new Point(e.X, e.Y));
+			rowIndexOfItemUnderMouseToDrop = dgv.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+
+			if (e.Effect == DragDropEffects.Move)
+			{
+				// get 한 행을 삭제하고 원하는 위치에 넣어줍니다.
+				DataGridViewRow rowToMove = e.Data.GetData(typeof(DataGridViewRow)) as DataGridViewRow;
+				dgv.Rows.RemoveAt(rowIndexFromMouseDown);
+				dgv.Rows.Insert(rowIndexOfItemUnderMouseToDrop, rowToMove);
+			}
 		}
 	}
 }

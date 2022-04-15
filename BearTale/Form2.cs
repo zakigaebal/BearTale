@@ -21,9 +21,14 @@ namespace BearTale
 		public Form2()
 		{
 			InitializeComponent();
+			oData = new clsData();
+
 		}
 
-	
+		private clsData oData { get; set; }
+		private BindingSource oBS = new BindingSource();
+
+
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
 			if (textBoxString.Text == "")
@@ -34,13 +39,25 @@ namespace BearTale
 			dataGridView1.Rows.Add(1);
 
 			// 데이터그리드뷰 value값 지정
-			textboxColumn.DefaultCellStyle.ForeColor = Color.FromName(colorComboBox1.Text);
-			textboxColumn.DefaultCellStyle.BackColor = Color.FromName(colorComboBox2.Text);
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
 
 			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
 			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Value = textBoxString.Text;
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[1].Value = textBoxString.Text;
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[2].Value = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor;
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[3].Value = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor;
+			if (checkBoxBold.Checked)
+			{
+				dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+			}
+			if (checkBoxItalic.Checked)
+			{
+				dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
+			}
+
+			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[4].Value = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font.ToString() ;
 
 			//데이터그리드뷰 끝으로이동
 			//dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1;
@@ -201,7 +218,7 @@ namespace BearTale
 				dataGridView1.Rows.Add(rowData.ToArray());
 
 			dataGridView1.CellFormatting += dataGridView1_CellFormatting;
-
+			buttonLoad_Click(sender, e);
 		}
 
 		private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -212,7 +229,13 @@ namespace BearTale
 		private void buttonPageUp_Click(object sender, EventArgs e)
 		{
 			//listBox1.SelectedIndex = 0;
-			dataGridView1.CurrentCell = dataGridView1.Rows[0].Cells[0];
+			int rowindex = dataGridView1.CurrentCell.RowIndex;
+			int columnindex = dataGridView1.CurrentCell.ColumnIndex;
+			if (dataGridView1.CurrentCell.RowIndex < 0)
+			{
+				return;
+			}
+			dataGridView1.CurrentCell = dataGridView1.Rows[rowindex-10].Cells[columnindex];
 
 
 		}
@@ -234,9 +257,13 @@ namespace BearTale
 			//textboxColumn.HeaderText = "color";
 			dataGridView1.Columns.Add(textboxColumn);
 			dataGridView1.Columns.Add("stringText", "내용");
+			dataGridView1.Columns.Add("foregroundColor", "글자색");
+			dataGridView1.Columns.Add("backgroundColor", "배경색");
+			dataGridView1.Columns.Add("stringText", "내용");
+
+
 
 			dataGridView1.AllowUserToAddRows = false;
-
 			DataTable table = new DataTable();
 			DataColumn col = new DataColumn("Name", typeof(TextBoxBase));
 			table.Columns.Add(col);
@@ -284,7 +311,7 @@ namespace BearTale
 
 			dataGridView1.Columns[0].Resizable = DataGridViewTriState.False;
 			//dataGridView1.MultiSelect = true;
-			dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dataGridView1.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			dataGridView1.ReadOnly = true;
 			dataGridView1.ColumnHeadersVisible = false;
 
@@ -451,6 +478,10 @@ namespace BearTale
 
 		private void checkBoxBold_CheckedChanged(object sender, EventArgs e)
 		{
+			if (dataGridView1.CurrentCell == null)
+			{
+				return;
+			}
 			int rowindex = dataGridView1.CurrentCell.RowIndex;
 			if (checkBoxBold.Checked)
 			{
@@ -478,6 +509,10 @@ namespace BearTale
 
 		private void checkBoxItalic_CheckedChanged(object sender, EventArgs e)
 		{
+			if (dataGridView1.CurrentCell == null)
+			{
+				return ;
+			}
 			int rowindex = dataGridView1.CurrentCell.RowIndex;
 			if (checkBoxItalic.Checked)
 			{
@@ -494,6 +529,23 @@ namespace BearTale
 		{
 			MessageBox.Show("선택한 row의 0번째cell의 값 == " + dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue.ToString());
 			//MessageBox.Show("선택한 row의 0번째cell의 값 == " + dataGridView1.Rows[e.RowIndex].Cells[0].col.ToString());
+		}
+
+		private void btnGetData_Click(object sender, EventArgs e)
+		{
+			DataTable oTable = oData.GetData();
+			oBS.DataSource = oTable;
+			dataGridView1.DataSource = oBS;
+		}
+
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			DataTable oTable = (DataTable)oBS.DataSource;
+			DataView oDV = new DataView(oTable, "", "", DataViewRowState.ModifiedCurrent);
+			foreach (DataRowView oRow in oDV)
+			{
+				//write each row to the database as all of them have changed
+			}
 		}
 	}
 }

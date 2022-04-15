@@ -33,18 +33,27 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearToolStripMenuItemClear = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripTextBoxPath = new System.Windows.Forms.ToolStripTextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.checkBoxTail = new System.Windows.Forms.CheckBox();
-			this.clearToolStripMenuItemClear = new System.Windows.Forms.ToolStripMenuItem();
-			this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.aboutBearTaliToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.loadFromFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.highlightingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.comboBoxUtf = new System.Windows.Forms.ComboBox();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -53,7 +62,11 @@
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.preferencesToolStripMenuItem,
+            this.helpToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -76,6 +89,19 @@
 			this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.openToolStripMenuItem.Text = "Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+			// 
+			// clearToolStripMenuItemClear
+			// 
+			this.clearToolStripMenuItemClear.Name = "clearToolStripMenuItemClear";
+			this.clearToolStripMenuItemClear.Size = new System.Drawing.Size(180, 22);
+			this.clearToolStripMenuItemClear.Text = "Clear";
+			this.clearToolStripMenuItemClear.Click += new System.EventHandler(this.clearToolStripMenuItemClear_Click);
+			// 
+			// clearAllToolStripMenuItem
+			// 
+			this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
+			this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.clearAllToolStripMenuItem.Text = "ClearAll";
 			// 
 			// toolStrip1
 			// 
@@ -127,6 +153,17 @@
 			this.panel1.Size = new System.Drawing.Size(800, 401);
 			this.panel1.TabIndex = 3;
 			// 
+			// tabControl1
+			// 
+			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl1.Location = new System.Drawing.Point(0, 0);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(800, 401);
+			this.tabControl1.TabIndex = 0;
+			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+			this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabControl1_DragDrop);
+			// 
 			// contextMenuStrip1
 			// 
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -136,40 +173,84 @@
 			// checkBoxTail
 			// 
 			this.checkBoxTail.AutoSize = true;
-			this.checkBoxTail.Location = new System.Drawing.Point(173, 28);
+			this.checkBoxTail.Location = new System.Drawing.Point(164, 30);
 			this.checkBoxTail.Name = "checkBoxTail";
 			this.checkBoxTail.Size = new System.Drawing.Size(88, 16);
 			this.checkBoxTail.TabIndex = 6;
 			this.checkBoxTail.Text = "Follow_Tail";
 			this.checkBoxTail.UseVisualStyleBackColor = true;
+			this.checkBoxTail.CheckedChanged += new System.EventHandler(this.checkBoxTail_CheckedChanged);
 			// 
-			// clearToolStripMenuItemClear
+			// editToolStripMenuItem
 			// 
-			this.clearToolStripMenuItemClear.Name = "clearToolStripMenuItemClear";
-			this.clearToolStripMenuItemClear.Size = new System.Drawing.Size(180, 22);
-			this.clearToolStripMenuItemClear.Text = "Clear";
-			this.clearToolStripMenuItemClear.Click += new System.EventHandler(this.clearToolStripMenuItemClear_Click);
+			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+			this.editToolStripMenuItem.Text = "Edit";
 			// 
-			// clearAllToolStripMenuItem
+			// viewToolStripMenuItem
 			// 
-			this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
-			this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.clearAllToolStripMenuItem.Text = "ClearAll";
+			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+			this.viewToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+			this.viewToolStripMenuItem.Text = "View";
 			// 
-			// tabControl1
+			// preferencesToolStripMenuItem
 			// 
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl1.Location = new System.Drawing.Point(0, 0);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(800, 401);
-			this.tabControl1.TabIndex = 0;
+			this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadFromFilesToolStripMenuItem,
+            this.saveFromFileToolStripMenuItem,
+            this.highlightingToolStripMenuItem});
+			this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+			this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+			this.preferencesToolStripMenuItem.Text = "Preferences";
+			// 
+			// helpToolStripMenuItem
+			// 
+			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutBearTaliToolStripMenuItem});
+			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.helpToolStripMenuItem.Text = "Help";
+			// 
+			// aboutBearTaliToolStripMenuItem
+			// 
+			this.aboutBearTaliToolStripMenuItem.Name = "aboutBearTaliToolStripMenuItem";
+			this.aboutBearTaliToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.aboutBearTaliToolStripMenuItem.Text = "About bearTail";
+			this.aboutBearTaliToolStripMenuItem.Click += new System.EventHandler(this.aboutBearTaliToolStripMenuItem_Click);
+			// 
+			// loadFromFilesToolStripMenuItem
+			// 
+			this.loadFromFilesToolStripMenuItem.Name = "loadFromFilesToolStripMenuItem";
+			this.loadFromFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.loadFromFilesToolStripMenuItem.Text = "Load from File";
+			// 
+			// saveFromFileToolStripMenuItem
+			// 
+			this.saveFromFileToolStripMenuItem.Name = "saveFromFileToolStripMenuItem";
+			this.saveFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.saveFromFileToolStripMenuItem.Text = "Save from File";
+			// 
+			// highlightingToolStripMenuItem
+			// 
+			this.highlightingToolStripMenuItem.Name = "highlightingToolStripMenuItem";
+			this.highlightingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.highlightingToolStripMenuItem.Text = "Highlighting";
+			this.highlightingToolStripMenuItem.Click += new System.EventHandler(this.highlightingToolStripMenuItem_Click);
+			// 
+			// comboBoxUtf
+			// 
+			this.comboBoxUtf.FormattingEnabled = true;
+			this.comboBoxUtf.Location = new System.Drawing.Point(259, 28);
+			this.comboBoxUtf.Name = "comboBoxUtf";
+			this.comboBoxUtf.Size = new System.Drawing.Size(121, 20);
+			this.comboBoxUtf.TabIndex = 7;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.comboBoxUtf);
 			this.Controls.Add(this.checkBoxTail);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.toolStrip1);
@@ -207,6 +288,15 @@
 		private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItemClear;
 		private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
 		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem aboutBearTaliToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem loadFromFilesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveFromFileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem highlightingToolStripMenuItem;
+		private System.Windows.Forms.ComboBox comboBoxUtf;
 	}
 }
 
