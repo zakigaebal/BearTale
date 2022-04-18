@@ -215,6 +215,7 @@
 			this.checkBoxIgnore.TabIndex = 16;
 			this.checkBoxIgnore.Text = "Ignore Case";
 			this.checkBoxIgnore.UseVisualStyleBackColor = true;
+			this.checkBoxIgnore.CheckedChanged += new System.EventHandler(this.checkBoxIgnore_CheckedChanged);
 			// 
 			// checkBoxInvert
 			// 
@@ -225,6 +226,7 @@
 			this.checkBoxInvert.TabIndex = 16;
 			this.checkBoxInvert.Text = "Invert Match";
 			this.checkBoxInvert.UseVisualStyleBackColor = true;
+			this.checkBoxInvert.CheckedChanged += new System.EventHandler(this.checkBoxInvert_CheckedChanged);
 			// 
 			// checkBoxBold
 			// 

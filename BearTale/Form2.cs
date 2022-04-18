@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -27,7 +29,15 @@ namespace BearTale
 
 		private clsData oData { get; set; }
 		private BindingSource oBS = new BindingSource();
-
+		public static int Compare(String strA, String strB, bool ignoreCase)
+		{
+			if (ignoreCase)
+			{
+				return CultureInfo.CurrentCulture.CompareInfo.Compare(strA, strB, CompareOptions.IgnoreCase);
+			}
+			return CultureInfo.CurrentCulture.CompareInfo.Compare(strA, strB, CompareOptions.None);
+		}
+//		bool output = Regex.IsMatch("foo", "FOO", RegexOptions.IgnoreCase);
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
@@ -44,18 +54,47 @@ namespace BearTale
 
 			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
 			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
-			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Value = textBoxString.Text;
-			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[1].Value = textBoxString.Text;
-			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[2].Value = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor;
-			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[3].Value = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor;
+		
+			// 체크박스가 볼드가 트루이면
 			if (checkBoxBold.Checked)
 			{
 				dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
 			}
+			//체크박스가 이태릭이 트루이면
 			if (checkBoxItalic.Checked)
 			{
 				dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
 			}
+			if (checkBoxBold.Checked == true && checkBoxItalic.Checked == true)
+			{
+				dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold | FontStyle.Italic);
+			}
+			//대소문자 구분안하기 기능 체크박스
+			if (checkBoxIgnore.Checked)
+			{
+				String str = textBoxString.Text.ToString().ToLower();
+				String strA = textBoxString.Text.ToString().ToUpper();
+				StringComparison comp = StringComparison.OrdinalIgnoreCase;
+
+				bool ignoreCase = false;
+				if (ignoreCase)
+				{
+					ignoreCase = true;
+				}
+				//	Boolean result = str.Contains(value, comp);
+				//	Console.WriteLine($"Does string contain specified substring? {result}");
+				//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].
+			}
+	;
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Value = textBoxString.Text;
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[1].Value = textBoxString.Text;
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[2].Value = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor;
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[3].Value = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor;
+			//ignoreCase
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[4].Value = checkBoxIgnore.Checked.ToString();
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[5].Value = checkBoxInvert.Checked.ToString();
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[6].Value = checkBoxBold.Checked.ToString();
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[7].Value = checkBoxItalic.Checked.ToString();
 
 			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[4].Value = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font.ToString() ;
 
@@ -288,7 +327,10 @@ namespace BearTale
 			dataGridView1.Columns.Add("stringText", "내용");
 			dataGridView1.Columns.Add("foregroundColor", "글자색");
 			dataGridView1.Columns.Add("backgroundColor", "배경색");
-			dataGridView1.Columns.Add("stringText", "내용");
+			dataGridView1.Columns.Add("ignorecase", "ignorecase");
+			dataGridView1.Columns.Add("invertmatch", "invertmatch");
+			dataGridView1.Columns.Add("bold", "bold");
+			dataGridView1.Columns.Add("italic", "italic");
 
 
 
@@ -298,7 +340,8 @@ namespace BearTale
 			table.Columns.Add(col);
 
 			dataGridView1.Columns[0].Width = 50;
-			dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			dataGridView1.Columns[1].Width = 50;
+			//dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 			dataGridView1.GridColor = Color.White;
 			//dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridView1.SelectAll();
@@ -342,7 +385,7 @@ namespace BearTale
 			//dataGridView1.MultiSelect = true;
 			dataGridView1.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			dataGridView1.ReadOnly = true;
-			dataGridView1.ColumnHeadersVisible = false;
+			dataGridView1.ColumnHeadersVisible = true;
 
 		}
 
@@ -512,24 +555,43 @@ namespace BearTale
 				return;
 			}
 			int rowindex = dataGridView1.CurrentCell.RowIndex;
-			if (checkBoxBold.Checked)
+			
+			//체크박스볼드가 체크되었을때
+			if (checkBoxBold.Checked == true && checkBoxItalic.Checked == false)
 			{
-				checkBoxItalic.Checked = false;
 				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
+				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
-			else
+			//체크박스이테릭 체크되었을때
+			if (checkBoxBold.Checked == false && checkBoxItalic.Checked == true)
+			{
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
+				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
+				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
+			}
+				//체크박스가 둘다 체크되었을때
+				if (checkBoxBold.Checked == true && checkBoxItalic.Checked == true)
+			{
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold | FontStyle.Italic);
+				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
+				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
+			}
+			//체크박스가 둘다 체크안되었을때
+			if (checkBoxBold.Checked == false && checkBoxItalic.Checked == false)
 			{
 				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
+				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
+				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
-
-
 		}
+
 
 		private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
 		{
 //		 dataGridView1.Columns[0].DefaultHeaderCellType.BorderColor = System.Drawing.Color.Red;
-
 		}
+
 
 		private void FileListView_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -542,16 +604,48 @@ namespace BearTale
 			{
 				return ;
 			}
+
 			int rowindex = dataGridView1.CurrentCell.RowIndex;
-			if (checkBoxItalic.Checked)
+
+			//체크박스이테릭만 체크되었을때
+			if (checkBoxBold.Checked == false && checkBoxItalic.Checked == true)
 			{
-				checkBoxBold.Checked = false;
 				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
+				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
+				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
-			else
+			//체크박스볼드만 체크일때
+			if (checkBoxBold.Checked == true && checkBoxItalic.Checked == false)
+			{
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
+				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
+			}
+			//체크박스가 둘다 체크되었을때
+			if (checkBoxBold.Checked == true && checkBoxItalic.Checked == true)
+			{
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold | FontStyle.Italic);
+				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
+				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
+
+			}
+			//체크박스가 둘다 체크안되었을때
+			if (checkBoxBold.Checked == false && checkBoxItalic.Checked == false)
 			{
 				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
+				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
+				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
+
+			//if (checkBoxItalic.Checked)
+			//{
+			//	checkBoxBold.Checked = false;
+			//	dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
+			//}
+			//else
+			//{
+			//	dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
+			//}
 		}
 
 		private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -575,6 +669,38 @@ namespace BearTale
 			{
 				//write each row to the database as all of them have changed
 			}
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			string a = "a";
+			string A = "a";
+			bool ta = false;
+			Compare(a, A, ta);
+			MessageBox.Show(ta.ToString()); 
+		}
+
+		private void checkBoxInvert_CheckedChanged(object sender, EventArgs e)
+		{
+			if (dataGridView1.CurrentCell == null)
+			{
+				return;
+			}
+
+			int rowindex = dataGridView1.CurrentCell.RowIndex;
+
+			dataGridView1.Rows[rowindex].Cells[5].Value = checkBoxInvert.Checked.ToString();
+
+		}
+
+		private void checkBoxIgnore_CheckedChanged(object sender, EventArgs e)
+		{
+			if (dataGridView1.CurrentCell == null)
+			{
+				return;
+			}
+			int rowindex = dataGridView1.CurrentCell.RowIndex;
+			dataGridView1.Rows[rowindex].Cells[4].Value = checkBoxIgnore.Checked.ToString();
 		}
 	}
 }
