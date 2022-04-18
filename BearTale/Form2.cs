@@ -364,7 +364,8 @@ namespace BearTale
 				return;
 			}
 			int rowIndex = dataGridView1.CurrentCell.RowIndex;
-			dataGridView1.Rows[rowIndex].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
+			dataGridView1.Rows[rowIndex].Cells[2].Value = colorComboBox1.Text;
+//			dataGridView1.Rows[rowIndex].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
 			//textboxColumn.DefaultCellStyle.ForeColor = Color.FromName(colorComboBox1.Text);
 		}
 
@@ -375,7 +376,9 @@ namespace BearTale
 				return;
 			}
 			int rowIndex = dataGridView1.CurrentCell.RowIndex;
-			dataGridView1.Rows[rowIndex].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
+			dataGridView1.Rows[rowIndex].Cells[3].Value = colorComboBox2.Text;
+
+	//		dataGridView1.Rows[rowIndex].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
 			//textboxColumn.DefaultCellStyle.BackColor = Color.FromName(colorComboBox2.Text);
 		}
 
@@ -648,8 +651,8 @@ namespace BearTale
 		{
 			for (int i = 0; i < dataGridView1.Rows.Count; i++)
 			{
-				dataGridView1.Rows[i].Cells[0].Style.ForeColor = Color.FromName(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[2].Value.ToString());
-				dataGridView1.Rows[i].Cells[0].Style.BackColor = Color.FromName(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[3].Value.ToString());
+				dataGridView1.Rows[i].Cells[0].Style.ForeColor = Color.FromName(dataGridView1.Rows[i].Cells[2].Value.ToString());
+				dataGridView1.Rows[i].Cells[0].Style.BackColor = Color.FromName(dataGridView1.Rows[i].Cells[3].Value.ToString());
 
 				// 체크박스가 볼드가 True이고 체크박스 이태릭이 False일때
 					if (dataGridView1.Rows[i].Cells[6].Value.ToString() == "True" && dataGridView1.Rows[i].Cells[7].Value.ToString() == "False")
