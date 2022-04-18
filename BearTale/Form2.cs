@@ -228,23 +228,52 @@ namespace BearTale
 
 		private void buttonPageUp_Click(object sender, EventArgs e)
 		{
-			//listBox1.SelectedIndex = 0;
-			int rowindex = dataGridView1.CurrentCell.RowIndex;
-			int columnindex = dataGridView1.CurrentCell.ColumnIndex;
-			if (dataGridView1.CurrentCell.RowIndex < 0)
+			DataGridView dgv = dataGridView1;
+			try
 			{
-				return;
+				int totalRows = dgv.Rows.Count;
+				// get index of the row for the selected cell
+				int rowNumber = 0;
+				int rowIndex = dgv.SelectedCells[rowNumber].OwningRow.Index;
+				if (rowIndex == 0)
+					return;
+				// get index of the column for the selected cell
+				int colIndex = dgv.SelectedCells[0].OwningColumn.Index;
+				DataGridViewRow selectedRow = dgv.Rows[rowIndex];
+				dgv.ClearSelection();
+				if (rowIndex - 10 <0)
+				{
+				dgv.Rows[0].Cells[colIndex].Selected = true;
+				}
+				else	dgv.Rows[rowIndex - 10].Cells[colIndex].Selected = true;
 			}
-			dataGridView1.CurrentCell = dataGridView1.Rows[rowindex-10].Cells[columnindex];
-
+			catch { }
 
 		}
 
 		private void buttonPageDown_Click(object sender, EventArgs e)
 		{
-			//listBox1.SelectedIndex = listBox1.Items.Count - 1;
-			dataGridView1.CurrentCell = dataGridView1.Rows[dataGridView1.RowCount - 1].Cells[0];
-
+			DataGridView dgv = dataGridView1;
+			try
+			{
+				int totalRows = dgv.Rows.Count;
+				// get index of the row for the selected cell
+				int rowIndex = dgv.SelectedCells[0].OwningRow.Index;
+				if (rowIndex == totalRows - 1)
+					return;
+				// get index of the column for the selected cell
+				int colIndex = dgv.SelectedCells[0].OwningColumn.Index;
+				DataGridViewRow selectedRow = dgv.Rows[rowIndex];
+				dgv.Rows.Remove(selectedRow);
+				dgv.Rows.Insert(rowIndex + 1, selectedRow);
+				dgv.ClearSelection();
+				if (dgv.Rows[dataGridView1.Rows.Count - 1].Cells[colIndex].Value == null)
+				{
+					dgv.Rows[dataGridView1.Rows.Count-1].Cells[colIndex].Selected = true;
+				}
+				else dgv.Rows[rowIndex + 10].Cells[colIndex].Selected = true;
+			}
+			catch { }
 		}
 
 		private void Form2_Load(object sender, EventArgs e)

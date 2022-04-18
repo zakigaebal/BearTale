@@ -35,6 +35,14 @@
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearToolStripMenuItemClear = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.loadFromFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.highlightingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.aboutBearTaliToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -45,14 +53,6 @@
 			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.checkBoxTail = new System.Windows.Forms.CheckBox();
-			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.aboutBearTaliToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.loadFromFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.saveFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.highlightingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.comboBoxUtf = new System.Windows.Forms.ComboBox();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
@@ -102,6 +102,63 @@
 			this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
 			this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.clearAllToolStripMenuItem.Text = "ClearAll";
+			// 
+			// editToolStripMenuItem
+			// 
+			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+			this.editToolStripMenuItem.Text = "Edit";
+			// 
+			// viewToolStripMenuItem
+			// 
+			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+			this.viewToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+			this.viewToolStripMenuItem.Text = "View";
+			this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
+			// 
+			// preferencesToolStripMenuItem
+			// 
+			this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadFromFilesToolStripMenuItem,
+            this.saveFromFileToolStripMenuItem,
+            this.highlightingToolStripMenuItem});
+			this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+			this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+			this.preferencesToolStripMenuItem.Text = "Preferences";
+			// 
+			// loadFromFilesToolStripMenuItem
+			// 
+			this.loadFromFilesToolStripMenuItem.Name = "loadFromFilesToolStripMenuItem";
+			this.loadFromFilesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.loadFromFilesToolStripMenuItem.Text = "Load from File";
+			// 
+			// saveFromFileToolStripMenuItem
+			// 
+			this.saveFromFileToolStripMenuItem.Name = "saveFromFileToolStripMenuItem";
+			this.saveFromFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.saveFromFileToolStripMenuItem.Text = "Save from File";
+			// 
+			// highlightingToolStripMenuItem
+			// 
+			this.highlightingToolStripMenuItem.Name = "highlightingToolStripMenuItem";
+			this.highlightingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.highlightingToolStripMenuItem.Text = "Highlighting";
+			this.highlightingToolStripMenuItem.Click += new System.EventHandler(this.highlightingToolStripMenuItem_Click);
+			// 
+			// helpToolStripMenuItem
+			// 
+			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutBearTaliToolStripMenuItem});
+			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.helpToolStripMenuItem.Text = "Help";
+			// 
+			// aboutBearTaliToolStripMenuItem
+			// 
+			this.aboutBearTaliToolStripMenuItem.Name = "aboutBearTaliToolStripMenuItem";
+			this.aboutBearTaliToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.aboutBearTaliToolStripMenuItem.Text = "About bearTail";
+			this.aboutBearTaliToolStripMenuItem.Click += new System.EventHandler(this.aboutBearTaliToolStripMenuItem_Click);
 			// 
 			// toolStrip1
 			// 
@@ -180,62 +237,6 @@
 			this.checkBoxTail.Text = "Follow_Tail";
 			this.checkBoxTail.UseVisualStyleBackColor = true;
 			this.checkBoxTail.CheckedChanged += new System.EventHandler(this.checkBoxTail_CheckedChanged);
-			// 
-			// editToolStripMenuItem
-			// 
-			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-			this.editToolStripMenuItem.Text = "Edit";
-			// 
-			// viewToolStripMenuItem
-			// 
-			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-			this.viewToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-			this.viewToolStripMenuItem.Text = "View";
-			// 
-			// preferencesToolStripMenuItem
-			// 
-			this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadFromFilesToolStripMenuItem,
-            this.saveFromFileToolStripMenuItem,
-            this.highlightingToolStripMenuItem});
-			this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-			this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
-			this.preferencesToolStripMenuItem.Text = "Preferences";
-			// 
-			// helpToolStripMenuItem
-			// 
-			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutBearTaliToolStripMenuItem});
-			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-			this.helpToolStripMenuItem.Text = "Help";
-			// 
-			// aboutBearTaliToolStripMenuItem
-			// 
-			this.aboutBearTaliToolStripMenuItem.Name = "aboutBearTaliToolStripMenuItem";
-			this.aboutBearTaliToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.aboutBearTaliToolStripMenuItem.Text = "About bearTail";
-			this.aboutBearTaliToolStripMenuItem.Click += new System.EventHandler(this.aboutBearTaliToolStripMenuItem_Click);
-			// 
-			// loadFromFilesToolStripMenuItem
-			// 
-			this.loadFromFilesToolStripMenuItem.Name = "loadFromFilesToolStripMenuItem";
-			this.loadFromFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.loadFromFilesToolStripMenuItem.Text = "Load from File";
-			// 
-			// saveFromFileToolStripMenuItem
-			// 
-			this.saveFromFileToolStripMenuItem.Name = "saveFromFileToolStripMenuItem";
-			this.saveFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.saveFromFileToolStripMenuItem.Text = "Save from File";
-			// 
-			// highlightingToolStripMenuItem
-			// 
-			this.highlightingToolStripMenuItem.Name = "highlightingToolStripMenuItem";
-			this.highlightingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.highlightingToolStripMenuItem.Text = "Highlighting";
-			this.highlightingToolStripMenuItem.Click += new System.EventHandler(this.highlightingToolStripMenuItem_Click);
 			// 
 			// comboBoxUtf
 			// 

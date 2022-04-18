@@ -384,5 +384,10 @@ namespace BearTale
 				dgv.Rows.Insert(rowIndexOfItemUnderMouseToDrop, rowToMove);
 			}
 		}
+
+		private void viewToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
