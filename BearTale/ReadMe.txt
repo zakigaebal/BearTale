@@ -21,3 +21,4 @@ foreground,background 넣기
 FORM1과 FORM2 하이라이트 컬러 연동코드 만드는중
 datagridview 셀 서식값 저장, buttonLoad, buttonSave기능 추가
 체크박스값 데이터그리드뷰에 추가, 체크값 바꼈을때 dgv도 바뀜
+콤보박스 색상 변경시 셀색상도 변경
