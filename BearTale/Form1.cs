@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace BearTale
 {
@@ -55,7 +56,7 @@ namespace BearTale
 						dgv.ColumnHeadersVisible = false;
 						//dgv row 번호입력
 						dgv.RowPostPaint += dgv_RowPostPaint;
-						
+
 						//datagridview suspendlayout
 						dgv.SuspendLayout();
 						//한줄씩 읽고 추가하기
@@ -222,6 +223,8 @@ namespace BearTale
 			dgv.ReadOnly = true;
 			comboBoxUtf.Items.Add("UTF-8");
 			comboBoxUtf.SelectedIndex = 0;
+
+			dgv.CellFormatting += dgv_CellFormatting;
 		}
 
 		private void ListViewAdd(string fn, string fl, string fc) //리스트뷰에 들어온 데이터를 추가하자 
@@ -265,6 +268,26 @@ namespace BearTale
 		}
 		private void dgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
+			//Form2 highLightForm = (Form2)Owner;
+			//highLightForm form2 = (Form2)highLightForm;
+			string fileName = "high.xml";
+			List<List<string>> data = new List<List<string>>();
+			XmlSerializer xs = new XmlSerializer(data.GetType());
+			using (TextReader tr = new StreamReader(fileName))
+				data = (List<List<string>>)xs.Deserialize(tr);
+
+
+			foreach (List<string> rowData in data)
+			{
+				if (rowData.ToArray() == rowData.ToArray())
+				{
+					dgv.Rows[0].Cells[0].Style.ForeColor = Color.Red;
+				}
+				// dgv.Rows[0].Cells[0].Style.ForeColor =	rowData.First.ToString();
+				//dataGridView1.Rows[i].Cells[0].Style.ForeColor = Color.FromName(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[2].Value.ToString());
+				//				dgv.Rows.Add(rowData.ToArray());
+			}
+
 		}
 
 		Thread threadFileView = null; //파일조회 스레드 개체 생성

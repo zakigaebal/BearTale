@@ -45,30 +45,7 @@ namespace BearTale
 			{
 				return;
 			}
-			// 데이터그리드뷰 row1줄 추가
 			dataGridView1.Rows.Add(1);
-
-			// 데이터그리드뷰 value값 지정
-			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
-			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor = Color.FromName(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[4].Value.ToString());
-
-			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromName(colorComboBox1.Text);
-			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.BackColor = Color.FromName(colorComboBox2.Text);
-
-			//// 체크박스가 볼드가 트루이면
-			//if (checkBoxBold.Checked)
-			//{
-			//	dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
-			//}
-			////체크박스가 이태릭이 트루이면
-			//if (checkBoxItalic.Checked)
-			//{
-			//	dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
-			//}
-			//if (checkBoxBold.Checked == true && checkBoxItalic.Checked == true)
-			//{
-			//	dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold | FontStyle.Italic);
-			//}
 			//대소문자 구분안하기 기능 체크박스
 			if (checkBoxIgnore.Checked)
 			{
@@ -89,8 +66,6 @@ namespace BearTale
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[1].Value = textBoxString.Text;
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[2].Value = colorComboBox1.Text;
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[3].Value = colorComboBox2.Text;
-			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[2].Value = Color.FromName(colorComboBox1.Text);
-			//dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[3].Value = Color.FromName(colorComboBox2.Text);
 			//ignoreCase
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[4].Value = checkBoxIgnore.Checked.ToString();
 			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[5].Value = checkBoxInvert.Checked.ToString();
@@ -406,22 +381,7 @@ namespace BearTale
 
 
 
-		private void colorComboBox2_SelectedIndexChanged(object sender, EventArgs e)
-		{
 
-
-
-		}
-
-		private void textBox1_TextChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
-
-		}
 
 		private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
 		{// row header 에 자동 일련번호 넣기
@@ -551,28 +511,28 @@ namespace BearTale
 			//체크박스볼드가 체크되었을때
 			if (checkBoxBold.Checked == true && checkBoxItalic.Checked == false)
 			{
-	//			dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
 				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
 				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
 			//체크박스이테릭 체크되었을때
 			if (checkBoxBold.Checked == false && checkBoxItalic.Checked == true)
 			{
-		//		dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
 				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
 				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
 			//체크박스가 둘다 체크되었을때
 			if (checkBoxBold.Checked == true && checkBoxItalic.Checked == true)
 			{
-			//	dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold | FontStyle.Italic);
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold | FontStyle.Italic);
 				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
 				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
 			//체크박스가 둘다 체크안되었을때
 			if (checkBoxBold.Checked == false && checkBoxItalic.Checked == false)
 			{
-				//dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
+				dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
 				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
 				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
@@ -596,7 +556,6 @@ namespace BearTale
 			{
 				return;
 			}
-
 			int rowindex = dataGridView1.CurrentCell.RowIndex;
 
 			//체크박스이테릭만 체크되었을때
@@ -628,16 +587,6 @@ namespace BearTale
 				dataGridView1.Rows[rowindex].Cells[6].Value = checkBoxBold.Checked.ToString();
 				dataGridView1.Rows[rowindex].Cells[7].Value = checkBoxItalic.Checked.ToString();
 			}
-
-			//if (checkBoxItalic.Checked)
-			//{
-			//	checkBoxBold.Checked = false;
-			//	dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
-			//}
-			//else
-			//{
-			//	dataGridView1.Rows[rowindex].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
-			//}
 		}
 
 		private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -713,12 +662,12 @@ namespace BearTale
 					dataGridView1.Rows[i].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Italic);
 				}
 				//체크박스 둘다 트루
-				else if (dataGridView1.Rows[i].Cells[6].Value.ToString() == "True" && dataGridView1.Rows[i].Cells[6].Value.ToString() == "True")
+				else if (dataGridView1.Rows[i].Cells[6].Value.ToString() == "True" && dataGridView1.Rows[i].Cells[7].Value.ToString() == "True")
 				{
 					dataGridView1.Rows[i].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold | FontStyle.Italic);
 				}
 				//체크박스가 둘다 아닐때
-				else if (dataGridView1.Rows[i].Cells[6].Value.ToString() == "False" && dataGridView1.Rows[i].Cells[6].Value.ToString() == "False")
+				else if (dataGridView1.Rows[i].Cells[6].Value.ToString() == "False" && dataGridView1.Rows[i].Cells[7].Value.ToString() == "False")
 				{
 					dataGridView1.Rows[i].Cells[0].Style.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
 				}
